@@ -94,8 +94,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\favicon.ico" />
     <Content Include="csss\main.css" />
     <Content Include="csss\util.css" />
+    <Content Include="css\styles.css" />
+    <Content Include="degraus-nautico.aspx" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
@@ -103,7 +106,13 @@
     <Content Include="fonts\montserrat\OFL.txt" />
     <Content Include="images\icons\favicon.ico" />
     <Content Include="images\img-01.png" />
-    <Content Include="img\logo\logo.jpg" />
+    <Content Include="images\index\app.png" />
+    <Content Include="images\index\app1.jpg" />
+    <Content Include="images\index\app2.jpg" />
+    <Content Include="images\index\app3.jpg" />
+    <Content Include="img\logo\1\logo.jpg" />
+    <Content Include="img\logo\2\lu-lanhes.png" />
+    <Content Include="img\logo\3\nautico.jpg" />
     <Content Include="img\produtos\1\camarao-creme.jpg" />
     <Content Include="img\produtos\1\carnsecatomate.jpg" />
     <Content Include="img\produtos\1\palmito-presunto-queijo.jpg" />
@@ -122,12 +131,16 @@
     <Content Include="img\produtos\1\presunto-queijo.jpg" />
     <Content Include="img\produtos\1\queijo-oregano.jpg" />
     <Content Include="img\produtos\1\refrigerante-coca-cola-2-litros.jpg" />
+    <Content Include="index.html" />
     <Content Include="js\main.js" />
+    <Content Include="js\scripts.js" />
     <Content Include="Login.aspx" />
+    <Content Include="lu-lanches.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="pastelaria-alameda.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="css\JudasPriest win.ttf" />
     <Content Include="css\JudasPriest.ttf" />
@@ -257,19 +270,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Carrinho.aspx" />
     <Content Include="config.js" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\formatacao.css" />
     <Content Include="css\index.css" />
     <Content Include="css\resete.css" />
-    <Content Include="Default.aspx" />
     <Content Include="img\departamentos\bebidas2ljpg.jpg" />
     <Content Include="img\departamentos\maxresdefault.jpg" />
     <Content Include="img\departamentos\skol.jpg" />
     <Content Include="js\funcoesCarrinho.js" />
     <Content Include="main.js" />
-    <Content Include="Pedido.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\Index.js" />
@@ -290,19 +300,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Carrinho.aspx.cs">
-      <DependentUpon>Carrinho.aspx</DependentUpon>
+    <Compile Include="degraus-nautico.aspx.cs">
+      <DependentUpon>degraus-nautico.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Carrinho.aspx.designer.cs">
-      <DependentUpon>Carrinho.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="degraus-nautico.aspx.designer.cs">
+      <DependentUpon>degraus-nautico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -311,12 +314,19 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pedido.aspx.cs">
-      <DependentUpon>Pedido.aspx</DependentUpon>
+    <Compile Include="lu-lanches.aspx.cs">
+      <DependentUpon>lu-lanches.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pedido.aspx.designer.cs">
-      <DependentUpon>Pedido.aspx</DependentUpon>
+    <Compile Include="lu-lanches.aspx.designer.cs">
+      <DependentUpon>lu-lanches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pastelaria-alameda.aspx.cs">
+      <DependentUpon>pastelaria-alameda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pastelaria-alameda.aspx.designer.cs">
+      <DependentUpon>pastelaria-alameda.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

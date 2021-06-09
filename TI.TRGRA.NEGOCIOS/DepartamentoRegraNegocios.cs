@@ -14,7 +14,7 @@ namespace TI.REGRA.NEGOCIOS
 
         string qtdes = "quant";
 
-        public string GerarIndex(int id, string url, string descrica, string detalhes, string preco, int cont)
+        public string GerarIndex(int id, string url, string descrica, string detalhes, string preco, int cont, string tel)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace TI.REGRA.NEGOCIOS
                 sb.Append("<img class=\"card-img-top\" src=\"" + url + "\" alt=\"" + descrica + "\" height=\"300\" width=\"200\"/>");
                 sb.Append("<div class\"card-body\">");
                 sb.Append("<h5 class=\"card-title\">" + descrica + "</h5>");
-                sb.Append("<strong class=\"strong\"> R$: " + preco + "</strong>");
+                sb.Append("<strong class=\"strong-preco\"> R$: " + preco + "</strong>");
                 sb.Append("<p class=\"card-text\">" + detalhes + ".</p>");
                 sb.Append("<br>");
                 sb.Append("</a>");
@@ -97,7 +97,7 @@ namespace TI.REGRA.NEGOCIOS
 
                 sb.Append("<div data-app=\"product.quantity\" class=\"quantidade" + id + "\">");
                 sb.Append("<span id=\"span_erro_carrinho\" class=\"blocoAlerta\" style=\"display:none;\">Selecione uma opção para variação do produto</span>");
-                sb.Append("<strong>Quantidade:  </strong>");
+                sb.Append("<strong>Quantidade:</strong>");
                 sb.Append("<input class=\"btn btn-danger\" type=\"button\" width=\"50px\" id=\"plus" + id + "\" value='-' onclick=\"processar" + id + "(-1)\"/>");
                 sb.Append("<input class=\"btn btn-outline-dark\" id=\"quant" + id + "\" name=\"quant" + id + "\" class=\"text\" size=\"1\" type=\"text\" value=\"1\" maxlength=\"5\"/>");
                 sb.Append("<input class=\"btn btn-success\" type=\"button\" id=\"minus" + id + "\" value='+' onclick=\"processar" + id + "(1)\">");

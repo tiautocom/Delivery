@@ -10,13 +10,13 @@ using TI.TRGRA.NEGOCIOS;
 
 namespace TI.MY.LANCHE
 {
-    public partial class pastelaria_alameda : System.Web.UI.Page
+    public partial class rumos_buffet : System.Web.UI.Page
     {
         DepartamentoRegraNegocios departamentoRegraNegocios;
         PessoaRegraNegocios pessoaRegraNegocios;
         HtmlRegraNegocios htmlRegraNegocios;
 
-        public int idEmpresa = 1;
+        public int idEmpresa = 4;
         public int id = 0;
         public string layoutIndex, htmlindexModal = "";
         public string scriptModal, scriptAddCarrinho = "";

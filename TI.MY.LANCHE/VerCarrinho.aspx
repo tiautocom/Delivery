@@ -98,7 +98,7 @@
         }
 
         .Campos {
-            margin-top: 5px;
+            margin-top: 0px;
             margin-bottom: 0rem;
             color: red;
         }
@@ -130,14 +130,13 @@
                     var qt = localStorage.getItem("valor" + i);
 
                     if (prod != null) {
-                        var obs = localStorage.getItem("Obs" + i);
-
-
 
                         // exibe os dados da lista dentro da div itens
                         document.getElementById("itens").innerHTML += localStorage.getItem("quantidade" + i) + " x - ";
                         document.getElementById("itens").innerHTML += localStorage.getItem("produto" + i);
                         document.getElementById("itens").innerHTML += " ";
+
+                        var obs = localStorage.getItem("Obs" + i);
 
                         if (obs === "") {
                             document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + "<hr>";
@@ -208,19 +207,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Formas de Pagamento</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">PAGAMENTO</h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="Campos">*Campos Obrigatório</p>
 
                     <div class="form-group">
 
                         <label for="tipoos" class="col-md-12 control-label">Selecione forma de Pagamento</label>
-
                         <div class="col-md-12">
                             <select class="form-control" id="cidades" name="cidadesname" data-placeholder="* Selecione Tipo de Pagamento" onmouseout="formaPagamento()">
                                 <option value=""></option>
@@ -255,9 +252,9 @@
                                     <label for="pwd">Informe uma Referencia:</label>
                                     <input type="text" class="form-control" id="referencia" placeholder="Ao lado posto combustivel" />
                                 </div>
+                                <p class="Campos">*Campos Obrigatório</p>
                             </form>
                         </div>
-                        <hr />
 
                         <h5 class="valorTotal">
                             <strong>R$ Valor Total :<span id="somatotal"></span></strong>
@@ -271,177 +268,215 @@
                     <%--        <a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516%996080056&text=*Pedido%20rhEBeYDin*%20-%20*Best%20Burgers*%0A---------------------------%0A%0A*4x%20Coca-cola%201%2C5L%20R%24%2020%2C00*%20_c%C3%B3d.%2045XV_%20%0A*1x%20Mega%20Burguer*%20_c%C3%B3d.%205RYK_%20%0A%20%E2%80%A2%20Frances%20%0A%0A*Subtotal%3A*%20R%24%2020%2C00%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total%3A*%20R%24%2020%2C00%0A%0A---------------------------%0A*Retirada%20no%20local*%0A%0A*Pagamento%3A*%20Dinheiro%0A%0AAcompanhe%20seu%20pedido%20em%3A%0Aapp.qrmenus.com.br%2Fdemo-burguer%2Forder%2FrhEBeYDin," target="_blank" onclick="fecharPedido()">fechar</a>
                     --%>
                     <a class="btn btn-primary" id="mensagem-sucesso" onclick="pagamentos()">Confirmar Pedido</a>
-
                 </div>
             </div>
         </div>
+    </div>
 
-        <script>
+    <script>
 
-            function pagamentos() {
+        function pagamentos() {
 
-                var fp = window.document.getElementById("cidades");
-                var fr = window.document.getElementById("retirada");
+            var fp = window.document.getElementById("cidades");
+            var fr = window.document.getElementById("retirada");
+            var enderecoEntrega = window.document.getElementById("endereco");
 
+            if (fr.value == "Balcão") {
                 if (fp.value == "") {
                     alert("Informe uma Forma de Pagamento");
                 } else if (fr.value == "") {
                     alert("Informe uma Forma de Retirada");
-                }
-                else {
-                    const playButton = document.getElementById('mensagem-sucesso');
-                    playButton.innerHTML = 'Fechar Pedido'
-                    playButton.style.backgroundColor = "#d34000";
-
-                    var fp = window.document.getElementById("cidades");
-                    var fr = window.document.getElementById("retirada");
-
-                    var nome = window.document.getElementById("nome");
-                    var celular = window.document.getElementById("celular");
-                    var lista = localStorage.getItem('listaDados');
-                    var tipopagamento = window.document.getElementById("cidades").value;
-                    var tiporetirada = window.document.getElementById("retirada").value;
-
-                    const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "%20");
-
-                    var pedido = "Pedido Nº : " + numeroPedido.replace(" ", "%20");
-                    var celularCliente = $(".produtosIntTitulo").text();
-
-                    for (var i = 30; i >= 0; i--) {
-                        var novalista = lista.replace('<hr>', '%0A');
-                        lista.replace('<strong>', '*');
-                        lista.replace('</strong>', '*');
-                        lista.replace(' ', "%20");
-                    }
-
-                    const subtotal = total.toFixed(2).replace(".", "%2C");
-
-                    let texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*---------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0ASEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2060%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0Aapp%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
-
-                    var test = document.getElementById('mensagem-sucesso').onclick = function () {
-
-                        let a = document.createElement('a');
-                        a.target = '_blank'
-                        a.href = texto
-                        a.click() // simular o evento de "click"
-
-                        swal('Pedido Realizado com Sucesso!', 'Seu Pedido estara Pronto em 40 Minutos!', 'success')
-
-                        for (var i = 0; i < 1000; i++) {
-
-                            limparCampos();
-
-                            localStorage.clear();
-
-                            location.reload();
-
-                            window.history.back();
-                        }
-                    }
-                }
-            };
-
-            function pausecomp(millis) {
-                var date = new Date();
-                var curDate = null;
-                do { curDate = new Date(); }
-                while (curDate - date < millis);
-            }
-
-            function texto() {
-                return "";
-            }
-
-            function formaPagamento() {
-
-                var tipo = window.document.getElementById("cidades").value;
-
-                if (tipo == "1") {
-                    document.getElementById("valor").disabled = false;
-                } else if (tipo == 2)
-                    document.getElementById("valor").disabled = true;
-                else if (tipo == 3)
-                    document.getElementById("valor").disabled = true;
-                else if (tipo == 4)
-                    document.getElementById("valor").disabled = true;
-            }
-
-            function formaEntrega() {
-                var tipoEntrega = window.document.getElementById("retirada").value;
-
-                if (tipoEntrega == 2) {
-                    document.getElementById("endereco").disabled = false;
-                    document.getElementById("referencia").disabled = false;
                 } else {
-                    document.getElementById("endereco").disabled = true;
-                    document.getElementById("referencia").disabled = true;
+                    pagamentoBalcao();
                 }
-            };
-
-            function limparCampos() {
-                document.getElementById("valor").value = '';
-                document.getElementById("valor").disabled = true;
-                document.getElementById("endereco").disabled = true;
-                document.getElementById("referencia").disabled = true;
-
-                document.getElementById("retirada").value = 0;
-                document.getElementById("cidades").value = 0;
-
-                somatotal = (total); // arredonda para 2 casas decimais com o .toFixed(2)
-
-                document.getElementById("somatotal").innerHTML = somatotal.toFixed(2);
-            };
-
-            function fecharPedido() {
-                var fp = window.document.getElementById("cidades");
-                var fr = window.document.getElementById("retirada");
-
-                if (fp.value == "0") {
+            } else {
+                if (fp.value == "") {
                     alert("Informe uma Forma de Pagamento");
-                } else if (fr.value == "0") {
+                } else if (fr.value == "") {
                     alert("Informe uma Forma de Retirada");
+                } else if (enderecoEntrega.value == '') {
+                    alert("Informe uma Endereço de Entrega com Numero");
+                } else {
+                    pagamentoBalcao();
                 }
-                else {
+            }
+        };
 
-                    document.getElementById('mensagem-sucesso').onclick = function () {
-                        swal('Pedido com Sucesso!', 'Seu Pedido foi Realizado com Sucesso!', 'success')
-                    };
+        function pagamentoBalcao() {
+            const playButton = document.getElementById('mensagem-sucesso');
+            playButton.innerHTML = 'Fechar Pedido'
+            playButton.style.backgroundColor = "#d34000";
+
+            var fp = window.document.getElementById("cidades");
+            var fr = window.document.getElementById("retirada");
+
+            var nome = window.document.getElementById("nome");
+            var celular = window.document.getElementById("celular");
+            var lista = localStorage.getItem('listaDados');
+            var tipopagamento = window.document.getElementById("cidades").value;
+            var tiporetirada = window.document.getElementById("retirada").value;
+
+            const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "%20");
+
+            var pedido = "Pedido Nº : " + numeroPedido.replace(" ", "%20");
+            var celularCliente = $(".produtosIntTitulo").text();
+
+            for (var i = 30; i >= 0; i--) {
+                var novalista = lista.replace('<hr>', '%0A');
+                lista.replace('<strong>', '*');
+                lista.replace('</strong>', '*');
+                lista.replace(' ', "%20");
+            }
+
+            const subtotal = total.toFixed(2).replace(".", "%2C");
+
+            let texto = "";
+
+            var enderecoEntrega = window.document.getElementById("endereco");
+            var referencia = window.document.getElementById("referencia");
+            var troco = window.document.getElementById("valor");
+
+            if (enderecoEntrega.value == "") {
+                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*---------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0Aapp%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+            } else {
+                if (referencia.value == "") {
+                    referencia.value = "*xxx*";
+                }
+                if (troco.value == "") {
+                    troco.value = "%20R%24%200.00";
+                }
+
+                var textoendereco = "%0A%0A*ENDEREÇO%20ENTREGA:*%20%20" + enderecoEntrega.value + "%20.%0A*REFERENCIA:*%20" + referencia.value + "%0A*TROCO%20PARA:*%20" + troco.value;
+
+                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*---------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + textoendereco + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0Aapp%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+            }
+
+            var test = document.getElementById('mensagem-sucesso').onclick = function () {
+                let a = document.createElement('a');
+                a.target = '_blank'
+                a.href = texto
+                a.click() // simular o evento de "click"
+
+                swal('Pedido Realizado com Sucesso!', 'Seu Pedido estara Pronto em 40 Minutos!', 'success')
+
+                for (var i = 0; i < 1000; i++) {
 
                     limparCampos();
 
                     localStorage.clear();
+
                     location.reload();
 
-                    var navegador = window.document.getElementById('navbar-nav').value;
-                }
-            };
-
-            function delayer() {
-                window.location = getQueryVariable('url')
-            }
-
-
-            function verPagina() {
-                window.document.getElementById("nomeEmpresa").innerHTML = localStorage.getItem("nomeEmpresaWatts").toString().trim();
-                if (Number(window.document.getElementById('total').innerHTML) == 0) {
                     window.history.back();
                 }
             }
+        };
 
-            var numeroPedido = 0;
-            function gerarNumPedido() {
-                var data = new Date();
-                var dia = String(data.getDate()).padStart(2, '0');
-                var mes = String(data.getMonth() + 1).padStart(2, '0');
-                var ano = data.getUTCFullYear();
-                var hora = String(data.getHours()).padStart(2, '0');
-                var min = String(data.getMinutes()).padStart(2, '0');
-                var seg = String(data.getSeconds()).padStart(2, '0');
+        function pausecomp(millis) {
+            var date = new Date();
+            var curDate = null;
+            do { curDate = new Date(); }
+            while (curDate - date < millis);
+        }
 
-                numeroPedido = ("P" + ano + mes + dia + hora + min + seg);
+        function texto() {
+            return "";
+        }
 
-                window.document.getElementById('numPedido').innerHTML = ("Nº Pedido: " + numeroPedido);
-            };
+        function formaPagamento() {
+            var tipo = window.document.getElementById("cidades").value;
 
-        </script>
+            if (tipo == "1") {
+                document.getElementById("valor").disabled = false;
+            } else if (tipo == 2)
+                document.getElementById("valor").disabled = true;
+            else if (tipo == 3)
+                document.getElementById("valor").disabled = true;
+            else if (tipo == 4)
+                document.getElementById("valor").disabled = true;
+        }
+
+        function formaEntrega() {
+            var tipoEntrega = window.document.getElementById("retirada").value;
+
+            if (tipoEntrega == 'Delivery') {
+                document.getElementById("endereco").disabled = false;
+                document.getElementById("referencia").disabled = false;
+                document.getElementById("valor").disabled = false;
+
+                document.getElementById("endereco").focus();
+            } else {
+                document.getElementById("endereco").disabled = true;
+                document.getElementById("referencia").disabled = true;
+                document.getElementById("valor").disabled = true;
+            }
+        };
+
+        function limparCampos() {
+            document.getElementById("valor").value = '';
+            document.getElementById("valor").disabled = true;
+            document.getElementById("endereco").disabled = true;
+            document.getElementById("referencia").disabled = true;
+
+            document.getElementById("retirada").value = 0;
+            document.getElementById("cidades").value = 0;
+
+            somatotal = (total); // arredonda para 2 casas decimais com o .toFixed(2)
+
+            document.getElementById("somatotal").innerHTML = somatotal.toFixed(2);
+        };
+
+        function fecharPedido() {
+            alert('fechar');
+            var fp = window.document.getElementById("cidades");
+            var fr = window.document.getElementById("retirada");
+
+            if (fp.value == "0") {
+                alert("Informe uma Forma de Pagamento");
+            } else if (fr.value == "0") {
+                alert("Informe uma Forma de Retirada");
+            }
+            else {
+
+                document.getElementById('mensagem-sucesso').onclick = function () {
+                    swal('Pedido com Sucesso!', 'Seu Pedido foi Realizado com Sucesso!', 'success')
+                };
+
+                limparCampos();
+
+                localStorage.clear();
+                location.reload();
+
+                var navegador = window.document.getElementById('navbar-nav').value;
+            }
+        };
+
+        function delayer() {
+            window.location = getQueryVariable('url')
+        }
+
+
+        function verPagina() {
+            window.document.getElementById("nomeEmpresa").innerHTML = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+            if (Number(window.document.getElementById('total').innerHTML) == 0) {
+                window.history.back();
+            }
+        }
+
+        var numeroPedido = 0;
+        function gerarNumPedido() {
+            var data = new Date();
+            var dia = String(data.getDate()).padStart(2, '0');
+            var mes = String(data.getMonth() + 1).padStart(2, '0');
+            var ano = data.getUTCFullYear();
+            var hora = String(data.getHours()).padStart(2, '0');
+            var min = String(data.getMinutes()).padStart(2, '0');
+            var seg = String(data.getSeconds()).padStart(2, '0');
+
+            numeroPedido = ("P" + ano + mes + dia + hora + min + seg);
+
+            window.document.getElementById('numPedido').innerHTML = ("Nº Pedido: " + numeroPedido);
+        };
+
+    </script>
 </asp:Content>

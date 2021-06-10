@@ -141,6 +141,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pastelaria-alameda.aspx" />
+    <Content Include="rumos-buffet.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="css\JudasPriest win.ttf" />
     <Content Include="css\JudasPriest.ttf" />
@@ -333,6 +334,13 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="rumos-buffet.aspx.cs">
+      <DependentUpon>rumos-buffet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rumos-buffet.aspx.designer.cs">
+      <DependentUpon>rumos-buffet.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>

@@ -141,7 +141,7 @@
                         if (obs === "") {
                             document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + "<hr>";
                         } else {
-                            document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + "<strong class='strongsobs'> - OBS: " + localStorage.getItem("Obs" + i) + "</strong><hr>";
+                            document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + " - <strong>OBS: " + localStorage.getItem("Obs" + i) + "</strong><hr>";
                         }
 
                         localStorage.setItem("listaDados", document.getElementById("itens").innerHTML += " ");
@@ -194,7 +194,7 @@
 
             </script>
 
-            <button type="button" onclick="localStorage.clear(); location.reload();" class="btn btn-danger" onload='window.history.back();'>Limpar carrinho</button>
+            <button type="button" onclick="limparCarrinho();" class="btn btn-danger">Limpar carrinho</button>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" onclick="limparCampos()">Fechar Venda</button>
 
             <div id="numPedido" class="numPedido">Pedido Nº:</div>
@@ -322,10 +322,7 @@
             var celularCliente = $(".produtosIntTitulo").text();
 
             for (var i = 30; i >= 0; i--) {
-                var novalista = lista.replace('<hr>', '%0A');
-                lista.replace('<strong>', '*');
-                lista.replace('</strong>', '*');
-                lista.replace(' ', "%20");
+                var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", '%0A').replace(' ', "%20").trim();
             }
 
             const subtotal = total.toFixed(2).replace(".", "%2C");
@@ -347,7 +344,7 @@
                 }
 
                 var textoendereco = "%0A%0A*ENDEREÇO%20ENTREGA:*%20%20" + enderecoEntrega.value.toUpperCase() + "%20.%0A*REFERENCIA:*%20" + referencia.value.toUpperCase() + "%0A*TROCO%20PARA:*%20" + troco.value;
-       
+
                 texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + textoendereco + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
             }
 
@@ -426,8 +423,16 @@
             document.getElementById("somatotal").innerHTML = somatotal.toFixed(2);
         };
 
+        function limparCarrinho() {
+            limparCampos();
+
+            var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "-").toLocaleLowerCase();
+
+            window.location.assign(nomeEmpresaZ + ".aspx");
+            localStorage.clear();
+        };
+
         function fecharPedido() {
-            alert('fechar');
             var fp = window.document.getElementById("cidades");
             var fr = window.document.getElementById("retirada");
 
@@ -445,6 +450,7 @@
                 limparCampos();
 
                 localStorage.clear();
+
                 location.reload();
 
                 var navegador = window.document.getElementById('navbar-nav').value;
@@ -456,8 +462,8 @@
         }
 
         function verPagina() {
-            const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
-            window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ;
+            var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+            window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ.trim();
             if (Number(window.document.getElementById('total').innerHTML) == '0.00') {
                 window.history.back();
             }

@@ -161,15 +161,6 @@
                 window.location.href = "pastelaria-alameda.aspx";
             }
 
-            function IrCarrinho() {
-
-                let nomeUsuario = localStorage.setItem("valor" + 0, valor);
-
-                if (nomeUsuario.length > 0) {
-                    window.location.href = "VerCarrinho.aspx";
-                }
-            };
-
             function moeda(a, e, r, t) {
                 alert("moeda");
                 let n = ""

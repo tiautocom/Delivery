@@ -123,6 +123,7 @@
                 var total = 0; // variável que retorna o total dos produtos que estão na LocalStorage.
                 var i = 0;     // variável que irá percorrer as posições
                 var valor = 0; // variável que irá receber o preço do produto convertido em Float.
+                var listas = [];
 
                 for (i = 1; i <= 99; i++) // verifica até 99 produtos registrados na localStorage
                 {
@@ -139,6 +140,7 @@
                         var obs = localStorage.getItem("Obs" + i);
 
                         if (obs === "") {
+
                             document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + "<hr>";
                         } else {
                             document.getElementById("itens").innerHTML += "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",") + " - <strong>OBS: " + localStorage.getItem("Obs" + i) + "</strong><hr>";
@@ -149,6 +151,12 @@
                         // calcula o total dos recheios
                         valor = parseFloat(localStorage.getItem("valor" + i)); // valor convertido com o parseFloat()
                         total = (total + valor); // arredonda para 2 casas decimais com o .toFixed(2)
+
+                        if (obs === "") {
+                            listas[i] = (localStorage.getItem("quantidade" + i).trim() + " x - " + localStorage.getItem("produto" + i).trim() + "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",").trim());
+                        } else {
+                            listas[i] = (localStorage.getItem("quantidade" + i).trim() + " x - " + localStorage.getItem("produto" + i).trim() + "R$: " + Number(localStorage.getItem("valor" + i)).toFixed(2).replace(".", ",").trim() + " - *OBS: " + localStorage.getItem("Obs" + i).trim().toLocaleLowerCase() + "*").trim();
+                        }
                     }
                 }
                 // exibe o total dos recheios
@@ -322,8 +330,18 @@
             var celularCliente = $(".produtosIntTitulo").text();
 
             for (var i = 30; i >= 0; i--) {
-                var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", '%0A').replace(' ', "%20").trim();
+                var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", "%0A").replace(' ', "%20").trim();
             }
+
+            let textoZap;
+
+            for (var i = 1; i < listas.length; i++) {
+                console.log(listas[i]);
+                textoZap += listas[i] + "%0A";
+                textoZap = textoZap.replace("undefined", "").trim();
+            }
+
+            alert(textoZap);
 
             const subtotal = total.toFixed(2).replace(".", "%2C");
 
@@ -334,7 +352,7 @@
             var troco = window.document.getElementById("valor");
 
             if (enderecoEntrega.value == "") {
-                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + textoZap.replace("undefined", "") + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
             } else {
                 if (referencia.value == "") {
                     referencia.value = "sem";
@@ -345,7 +363,7 @@
 
                 var textoendereco = "%0A%0A*ENDEREÇO%20ENTREGA:*%20%20" + enderecoEntrega.value.toUpperCase() + "%20.%0A*REFERENCIA:*%20" + referencia.value.toUpperCase() + "%0A*TROCO%20PARA:*%20" + troco.value;
 
-                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + novalista + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + textoendereco + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+                texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + textoZap.replace("undefined", "") + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + textoendereco + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
             }
 
             var test = document.getElementById('mensagem-sucesso').onclick = function () {

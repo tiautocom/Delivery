@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="rumos-buffet.aspx.cs" Inherits="TI.MY.LANCHE.rumos_buffet" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="carlos-buffet.aspx.cs" Inherits="TI.MY.LANCHE.rumos_buffet" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -159,7 +159,7 @@
 
                 alert("Produto adicionado ao carrinho!\n\nValor Total Pedido de R$ " + valor.toFixed(2));
 
-                window.location.href = "pastelaria-alameda.aspx";
+                window.location.href = "carlos-buffet.aspx";
             }
 
             function IrCarrinho() {

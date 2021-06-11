@@ -47,12 +47,12 @@ namespace TI.MY.LANCHE
 
                 if (dadosTabela.Rows.Count > 0)
                 {
-                    Session["idEmpresa"] = idEmpresa = Convert.ToInt32(dadosTabela.Rows[0]["ID"].ToString());
-                    nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString().Trim();
+                    Session["idEmpresa"] = idEmpresa;
+                    nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString().Trim().Replace(" ", "-").ToLower().Trim();
                     urlLogo = dadosTabela.Rows[0]["IMG_LOGO"].ToString().Trim();
                     tel = dadosTabela.Rows[0]["TELEFONE"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "pastelaria-alameda", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, nomeEmpresa, tel);
 
                     Session["iFramelogoScript"] = layoutLogo;
                 }

@@ -32,7 +32,7 @@
             let celularUsuario = localStorage.getItem("celularUsuario", celular);
 
             if (nomeUsuario != null && celularUsuario != null) {
-                window.location.href = "Default.aspx";
+                window.location.href = "index.html";
             }
         });
     </script>
@@ -116,7 +116,7 @@
                 localStorage.setItem("nomeUsuario", nome);
                 localStorage.setItem("celularUsuario", celular);
 
-                window.location.href = "Default.aspx";
+                window.location.href = "index.html";
             }
         }
 

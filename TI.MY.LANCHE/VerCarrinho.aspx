@@ -456,6 +456,8 @@
         }
 
         function verPagina() {
+            const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+            window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ;
             if (Number(window.document.getElementById('total').innerHTML) == '0.00') {
                 window.history.back();
             }

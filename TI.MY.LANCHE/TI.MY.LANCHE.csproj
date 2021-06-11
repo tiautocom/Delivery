@@ -113,6 +113,8 @@
     <Content Include="img\logo\1\logo.jpg" />
     <Content Include="img\logo\2\lu-lanhes.png" />
     <Content Include="img\logo\3\nautico.jpg" />
+    <Content Include="img\logo\4\cmbuffet.jpg" />
+    <Content Include="img\logo\5\degraus.jpg" />
     <Content Include="img\produtos\1\camarao-creme.jpg" />
     <Content Include="img\produtos\1\carnsecatomate.jpg" />
     <Content Include="img\produtos\1\palmito-presunto-queijo.jpg" />
@@ -141,7 +143,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="pastelaria-alameda.aspx" />
-    <Content Include="rumos-buffet.aspx" />
+    <Content Include="carlos-buffet.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="css\JudasPriest win.ttf" />
     <Content Include="css\JudasPriest.ttf" />
@@ -335,12 +337,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="rumos-buffet.aspx.cs">
-      <DependentUpon>rumos-buffet.aspx</DependentUpon>
+    <Compile Include="carlos-buffet.aspx.cs">
+      <DependentUpon>carlos-buffet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="rumos-buffet.aspx.designer.cs">
-      <DependentUpon>rumos-buffet.aspx</DependentUpon>
+    <Compile Include="carlos-buffet.aspx.designer.cs">
+      <DependentUpon>carlos-buffet.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>

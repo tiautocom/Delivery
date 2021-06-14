@@ -27,5 +27,45 @@ namespace TI.TRGRA.NEGOCIOS
                 throw;
             }
         }
+
+        public string GerarStatusEstabelcimento(string abertura, string fechamento)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+
+                DateTime HoraAtual = DateTime.Now;
+
+                string variavelHora = DateTime.Now.ToString();
+
+                if (Convert.ToDateTime(abertura) > Convert.ToDateTime(variavelHora))
+                {
+                    sb.Append("<div class=\"alert alert-danger\" role=\"alert\">");
+                    sb.Append("Estabelecimento Fechado!");
+                    sb.Append("</div>");
+                }
+                else
+                {
+                    if (Convert.ToDateTime(variavelHora) < Convert.ToDateTime(fechamento))
+                    {
+                        sb.Append("<div class=\"alert alert-warning\" role=\"alert\">");
+                        sb.Append("Estabelecimento Aberto!");
+                        sb.Append("</div>");
+                    }
+                    else
+                    {
+                        sb.Append("<div class=\"alert alert-danger\" role=\"alert\">");
+                        sb.Append("Estabelecimento Fechado!");
+                        sb.Append("</div>");
+                    }
+                }
+
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

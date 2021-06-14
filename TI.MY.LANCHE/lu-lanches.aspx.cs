@@ -19,10 +19,10 @@ namespace TI.MY.LANCHE
         public int idEmpresa = 2;
         public int id = 0;
         public string layoutIndex, htmlindexModal = "";
-        public string scriptModal, scriptAddCarrinho = "";
+        public string scriptModal, scriptAddCarrinho, abertura, fechamento = "";
         public string desc, det, url, preco, tel = "";
         public int cont = 0;
-        public string nomeEmpresa, layoutLogo, urlLogo = "";
+        public string nomeEmpresa, layoutLogo, urlLogo, layoutEstabelicmento = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -51,10 +51,15 @@ namespace TI.MY.LANCHE
                     nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString().Trim();
                     urlLogo = dadosTabela.Rows[0]["IMG_LOGO"].ToString().Trim();
                     tel = dadosTabela.Rows[0]["TELEFONE"].ToString().Trim();
+                    abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
+                    fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "lu-lanches", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "pastelaria-alameda", tel);
+                    layoutEstabelicmento = htmlRegraNegocios.GerarStatusEstabelcimento(abertura, fechamento);
 
                     Session["iFramelogoScript"] = layoutLogo;
+
+                    iFrameEstabelecimento.Controls.Add(new LiteralControl(layoutEstabelicmento));
                 }
             }
             else
@@ -104,7 +109,7 @@ namespace TI.MY.LANCHE
                             cont++;
                         }
                     }
-                
+
                     iFrameIndex.Controls.Add(new LiteralControl(layoutIndex));
                     iFrameScript.Controls.Add(new LiteralControl(scriptModal));
                 }

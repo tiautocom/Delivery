@@ -8,6 +8,7 @@
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
 
     <script>
+
         window.addEventListener("load", function (event) {
             var valorDaDiv = $(".produtosIntTitulo").text();
             $("#orcamentoAssuntoForm").val(valorDaDiv);
@@ -16,6 +17,7 @@
 
             localStorage.setItem("nomeEmpresaWatts", valornome);
         });
+
     </script>
     <style>
         .strong {
@@ -104,6 +106,11 @@
         .imagelogo {
             border-radius: 100%;
         }
+
+        .alert {
+            margin-top: 8px;
+            text-align-last: center;
+        }
     </style>
 
     <script>
@@ -126,6 +133,9 @@
 
         <div class="page-container">
             <div class="container">
+
+                <asp:PlaceHolder ID="iFrameEstabelecimento" runat="server" />
+
                 <h6>
                     <strong>
                         <asp:Literal ID="Departamentos" runat="server" />

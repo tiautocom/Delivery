@@ -16,6 +16,7 @@
 
             localStorage.setItem("nomeEmpresaWatts", valornome);
         });
+
     </script>
 
     <style>
@@ -105,6 +106,11 @@
         .imagelogo {
             border-radius: 100%;
         }
+
+        .alert {
+            margin-top: 8px;
+            text-align-last: center;
+        }
     </style>
 
     <script>
@@ -130,6 +136,9 @@
 
         <div class="page-container">
             <div class="container">
+
+                <asp:PlaceHolder ID="iFrameEstabelecimento" runat="server" />
+
                 <h6>
                     <strong>
                         <asp:Literal ID="Departamentos" runat="server" />
@@ -139,6 +148,7 @@
                 <div class="row">
                     <asp:PlaceHolder ID="iFrameIndex" runat="server" />
                 </div>
+
             </div>
         </div>
 

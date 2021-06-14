@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1382
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.MY.LANCHE", "TI.MY.LANCHE\TI.MY.LANCHE.csproj", "{7D83EF3C-2B12-4E56-AD7E-9C45B61817DF}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.OBJETO.TRANSFERENCIA", "TI.OBJETO.TRANSFERENCIA\TI.OBJETO.TRANSFERENCIA.csproj", "{9A2DFF2B-D837-4B46-9F25-A8D8CE0C3F5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.ACESSO.DADOS", "TI.ACESSO.DADOS\TI.ACESSO.DADOS.csproj", "{1C5A75A9-46A4-468F-8693-8243C8AE9704}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.MY.LANCHE.ADM", "TI.MY.LANCHE.ADM\TI.MY.LANCHE.ADM.csproj", "{A5B79550-8935-47AD-AB89-CEC7F86B2750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{1C5A75A9-46A4-468F-8693-8243C8AE9704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C5A75A9-46A4-468F-8693-8243C8AE9704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C5A75A9-46A4-468F-8693-8243C8AE9704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5B79550-8935-47AD-AB89-CEC7F86B2750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5B79550-8935-47AD-AB89-CEC7F86B2750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5B79550-8935-47AD-AB89-CEC7F86B2750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5B79550-8935-47AD-AB89-CEC7F86B2750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68D26B98-2812-4821-B184-ACC549A9E414}
 	EndGlobalSection
 EndGlobal

@@ -1,16 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TI.ACESSO.DADOS;
+using TI.OBJETO.TRANSFERENCIA;
 
 namespace TI.TRGRA.NEGOCIOS
 {
     public class PessoaRegraNegocios
     {
         Conexao conexaoSqlServer = new Conexao();
+
+        #region VariaveisConstrutores
+
+        string idRetorno;
+
+        SqlCommand comandSql = new SqlCommand();
+        StringBuilder sql = new StringBuilder();
+        DataTable dadosTabela = new DataTable();
+        #endregion
 
         public DataTable Pesquisar(int nomeEmpresa)
         {
@@ -59,5 +70,48 @@ namespace TI.TRGRA.NEGOCIOS
                 throw new Exception(ex.Message);
             }
         }
+
+        #region Add_Update
+        public string AddEmpresa(Pessoa pessoa, EmpresaPJ empresa, int opcao)
+        {
+            try
+            {
+                //0PCAO 1=CADASTRAR - 2=ALTERAR
+                conexaoSqlServer.LimparParametros();
+
+                // conexaoSqlServer.AdicionarParametros("@Tipo", opcao);
+                conexaoSqlServer.AdicionarParametros("@NOME_RAZAO", pessoa.Fantasia);
+                conexaoSqlServer.AdicionarParametros("@FANTASIA", pessoa.Fantasia);
+                conexaoSqlServer.AdicionarParametros("@CPF_CNPJ", pessoa.CpfCnpj);
+                conexaoSqlServer.AdicionarParametros("@RG_IE", pessoa.RgIe);
+                conexaoSqlServer.AdicionarParametros("@EMAIL", pessoa.Email);
+                conexaoSqlServer.AdicionarParametros("@ATIVO", pessoa.Ativo);
+
+                conexaoSqlServer.AdicionarParametros("@STATUS", pessoa.Ativo);
+                conexaoSqlServer.AdicionarParametros("@IM", empresa.IM);
+                conexaoSqlServer.AdicionarParametros("@TELEFONE", empresa.Telefone);
+                conexaoSqlServer.AdicionarParametros("@HORA_INICIO", empresa.HoraAbertura);
+                conexaoSqlServer.AdicionarParametros("@HORA_FIM", empresa.HoraFechamento);
+                conexaoSqlServer.AdicionarParametros("@IMG_LOGO", empresa.Img_Logo);
+                conexaoSqlServer.AdicionarParametros("@ID_SETOR", empresa.idSetor);
+                //conexaoSqlServer.AdicionarParametros("@ID_PESSOA", empresa.idPessoa);
+
+                if (opcao == 1)
+                {
+                    idRetorno = conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspEmpresaAdd").ToString();
+                }
+                else if (opcao == 2)
+                {
+                    conexaoSqlServer.AdicionarParametros("@ID", pessoa.Id);
+                    idRetorno = conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspEmpresaUpdate").ToString();
+                }
+                return idRetorno;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
     }
 }

@@ -352,8 +352,6 @@
                 }
             }
 
-            alert(textoZap);
-
             const subtotal = total.toFixed(2).replace(".", "%2C");
 
             let texto = "";

@@ -54,7 +54,7 @@ namespace TI.MY.LANCHE
                     abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
                     fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "pastelaria-alameda", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "lu-lanches", tel);
                     layoutEstabelicmento = htmlRegraNegocios.GerarStatusEstabelcimento(abertura, fechamento);
 
                     Session["iFramelogoScript"] = layoutLogo;

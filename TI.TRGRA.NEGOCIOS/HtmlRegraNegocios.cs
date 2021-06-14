@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,14 +35,19 @@ namespace TI.TRGRA.NEGOCIOS
             {
                 StringBuilder sb = new StringBuilder();
 
+
                 DateTime HoraAtual = DateTime.Now;
 
-                string variavelHora = DateTime.Now.ToString();
+                CultureInfo idioma = new CultureInfo("pt-BR");
+
+                HoraAtual.ToString("HHmm", idioma);
+
+                string variavelHora = Convert.ToDateTime(ObterHorarioBrasilia()).ToString("HH:mm");
 
                 if (Convert.ToDateTime(abertura) > Convert.ToDateTime(variavelHora))
                 {
                     sb.Append("<div class=\"alert alert-danger\" role=\"alert\">");
-                    sb.Append("Estabelecimento Fechado!");
+                    sb.Append("Opss.. Estabelecimento Fechado!");
                     sb.Append("</div>");
                 }
                 else
@@ -49,13 +55,13 @@ namespace TI.TRGRA.NEGOCIOS
                     if (Convert.ToDateTime(variavelHora) < Convert.ToDateTime(fechamento))
                     {
                         sb.Append("<div class=\"alert alert-warning\" role=\"alert\">");
-                        sb.Append("Estabelecimento Aberto!");
+                        sb.Append("Estabelecimento Aberto Até às " + fechamento + "!");
                         sb.Append("</div>");
                     }
                     else
                     {
                         sb.Append("<div class=\"alert alert-danger\" role=\"alert\">");
-                        sb.Append("Estabelecimento Fechado!");
+                        sb.Append("Opss.. Estabelecimento Fechado!");
                         sb.Append("</div>");
                     }
                 }
@@ -66,6 +72,18 @@ namespace TI.TRGRA.NEGOCIOS
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public DateTime ObterHorarioBrasilia()
+        {
+
+            DateTime DateTimeUtc = DateTime.UtcNow;
+
+            TimeZoneInfo TimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");//(GMT-03:00) Brasília
+
+            DateTime DateTimeBrasilia = TimeZoneInfo.ConvertTimeFromUtc(DateTimeUtc, TimeZoneInfo);
+
+            return DateTimeBrasilia;
         }
     }
 }

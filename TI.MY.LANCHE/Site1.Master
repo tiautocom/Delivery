@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>App IDisque</title>
@@ -120,14 +119,38 @@
             border-radius: 100%;
         }
     </style>
+
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            var divconteudo = document.getElementById("divstatus").textContent;
+
+            if (divconteudo === 'Estabelecimento Fechado!') {
+                sessionStorage.setItem('statusEstabelecimetio', divconteudo);
+
+            } else {
+
+                function limparCampos() {
+                    window.localStorage.removeItem('nomeUsuario');
+                    window.localStorage.removeItem('celularUsuario');
+                    window.location.href = "Login.aspx";
+                }
+            }
+        };
+
+    </script>
+
     <link href="css/index.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-
     <div>
+
+
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <asp:PlaceHolder ID="iFramelogoScript" runat="server" />
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -153,19 +176,10 @@
         </nav>
     </div>
 
-    <script type="text/javascript">
-
-        function limparCampos() {
-            window.localStorage.removeItem('nomeUsuario');
-            window.localStorage.removeItem('celularUsuario');
-            window.location.href = "Login.aspx";
-        }
-    </script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-        
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
@@ -173,11 +187,11 @@
         <div class="bs-example">
 
             <footer>
-                <div class="icon-preview col s6 m3">
+                <div class="icon-preview col s6 m3" id="bntCarrinho">
                     <a href="VerCarrinho.aspx">
                         <i class="fas fa-cart-plus carrinho"></i>
                     </a>
-                    <p>Verão: 02.2021</p>
+                    <p>Versão: 02.2021</p>
                 </div>
             </footer>
 
@@ -198,6 +212,7 @@
             margin-top: 20px;
         }
     </style>
+
 
 </body>
 

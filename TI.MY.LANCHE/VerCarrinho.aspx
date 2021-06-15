@@ -286,28 +286,36 @@
     <script>
 
         function pagamentos() {
+            var status = sessionStorage.getItem('statusEstabelecimetio');
 
-            var fp = window.document.getElementById("cidades");
-            var fr = window.document.getElementById("retirada");
-            var enderecoEntrega = window.document.getElementById("endereco");
+            if (status == "Estabelecimento Fechado!") {
+                alert('Opss... Estabelecimento Fechado');
+                var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "-").toLocaleLowerCase();
 
-            if (fr.value == "Balcão") {
-                if (fp.value == "") {
-                    alert("Informe uma Forma de Pagamento");
-                } else if (fr.value == "") {
-                    alert("Informe uma Forma de Retirada");
-                } else {
-                    pagamentoBalcao();
-                }
+                window.location.assign(nomeEmpresaZ + ".aspx");
             } else {
-                if (fp.value == "") {
-                    alert("Informe uma Forma de Pagamento");
-                } else if (fr.value == "") {
-                    alert("Informe uma Forma de Retirada");
-                } else if (enderecoEntrega.value == '') {
-                    alert("Informe uma Endereço de Entrega com Numero");
+                var fp = window.document.getElementById("cidades");
+                var fr = window.document.getElementById("retirada");
+                var enderecoEntrega = window.document.getElementById("endereco");
+
+                if (fr.value == "Balcão") {
+                    if (fp.value == "") {
+                        alert("Informe uma Forma de Pagamento");
+                    } else if (fr.value == "") {
+                        alert("Informe uma Forma de Retirada");
+                    } else {
+                        pagamentoBalcao();
+                    }
                 } else {
-                    pagamentoBalcao();
+                    if (fp.value == "") {
+                        alert("Informe uma Forma de Pagamento");
+                    } else if (fr.value == "") {
+                        alert("Informe uma Forma de Retirada");
+                    } else if (enderecoEntrega.value == '') {
+                        alert("Informe uma Endereço de Entrega com Numero");
+                    } else {
+                        pagamentoBalcao();
+                    }
                 }
             }
         };
@@ -491,6 +499,7 @@
         function verPagina() {
             var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
             window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ.trim();
+
             if (Number(window.document.getElementById('total').innerHTML) == '0.00') {
                 window.history.back();
             }

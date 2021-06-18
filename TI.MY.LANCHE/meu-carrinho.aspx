@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Meu Carrinho" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="VerCarrinho.aspx.cs" Inherits="TI.MY.LANCHE.VerCarrinho" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="meu-carrinho.aspx.cs" Inherits="TI.MY.LANCHE.meucarrinho" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <script>
         window.addEventListener("load", function (event) {
+            var url_atual = window.location.href;
             verPagina();
             gerarNumPedido();
         });
@@ -112,7 +112,7 @@
 
     <div class="container">
         <h2>Meu Carrinho</h2>
-
+        <hr />
         <div class="col-md-12">
 
             <div id="itens" class="itens"></div>
@@ -343,10 +343,6 @@
                 var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", "%0A").replace(' ', "%20").trim();
             }
 
-            //for (var i = 0; i < listas.length - 1; i++) {
-            //    let textoWattas = listas[i];
-            //}
-
             let textoZap;
             let text;
 
@@ -391,7 +387,9 @@
 
                 swal('Pedido Realizado com Sucesso!', 'Seu Pedido estara Pronto em 40 Minutos!', 'success')
 
-                for (var i = 0; i < 1000; i++) {
+                sessionStorage.setItem('chave', 'fechado');
+
+                for (var i = 0; i < 1; i++) {
 
                     limparCampos();
 
@@ -521,4 +519,5 @@
         };
 
     </script>
+
 </asp:Content>

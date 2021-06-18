@@ -188,7 +188,7 @@
 
             <footer>
                 <div class="icon-preview col s6 m3" id="bntCarrinho">
-                    <a href="VerCarrinho.aspx">
+                    <a href="meu-carrinho.aspx">
                         <i class="fas fa-cart-plus carrinho"></i>
                     </a>
                     <p>Versão: 02.2021</p>

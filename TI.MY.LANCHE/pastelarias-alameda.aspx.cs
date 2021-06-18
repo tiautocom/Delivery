@@ -10,7 +10,7 @@ using TI.TRGRA.NEGOCIOS;
 
 namespace TI.MY.LANCHE
 {
-    public partial class produtos : System.Web.UI.Page
+    public partial class pastelaria_alameda : System.Web.UI.Page
     {
         DepartamentoRegraNegocios departamentoRegraNegocios;
         PessoaRegraNegocios pessoaRegraNegocios;
@@ -20,7 +20,7 @@ namespace TI.MY.LANCHE
         public int id = 0;
         public string layoutIndex, htmlindexModal = "";
         public string scriptModal, scriptAddCarrinho = "";
-        public string desc, descDep, det, url, preco, tel = "";
+        public string desc, det, url, preco, tel = "";
         public int cont = 0;
         public string nomeEmpresa, layoutLogo, urlLogo, layoutEstabelicmento = "";
         public bool statusEmpresa;
@@ -81,26 +81,40 @@ namespace TI.MY.LANCHE
 
                 departamentoRegraNegocios = new DepartamentoRegraNegocios();
 
-                dadosTabela = departamentoRegraNegocios.PesquisarDepartamentosIdEmpresa(idEmpresa);
+                dadosTabela = departamentoRegraNegocios.Pesquisar(idEmpresa);
 
                 layoutIndex = "";
                 scriptModal = "";
 
                 if (dadosTabela.Rows.Count > 0)
                 {
+                    Departamentos.Text = dadosTabela.Rows[0]["DEPARTAMENTO"].ToString().Trim();
+
                     for (int i = 0; i < dadosTabela.Rows.Count; i++)
                     {
-                        url = dadosTabela.Rows[i]["URL"].ToString().Trim();
-                        desc = dadosTabela.Rows[i]["DESCRICAO"].ToString().Trim();
-                        descDep = dadosTabela.Rows[i]["DESCRICAO_DEPARTAMENTO"].ToString().Trim();
-                        id = Convert.ToInt32(dadosTabela.Rows[i]["ID"].ToString().Trim());
+                        url = dadosTabela.Rows[i]["URL_PRODUTO"].ToString().Trim();
+                        desc = dadosTabela.Rows[i]["PRODUTO"].ToString().Trim();
+                        det = dadosTabela.Rows[i]["INGREDIENTES"].ToString().Trim();
+                        id = Convert.ToInt32(dadosTabela.Rows[i]["ID_PRODUTO"].ToString());
+                        preco = dadosTabela.Rows[i]["PRECO"].ToString().Trim();
 
                         Session["idEmpresa"] = Convert.ToInt32(dadosTabela.Rows[0]["ID_EMPRESA"].ToString());
 
-                        layoutIndex += departamentoRegraNegocios.GerarCardsDepartanentos(id, url, desc, descDep);
+                        layoutIndex += departamentoRegraNegocios.GerarIndex(id, url, desc, det, preco, cont, tel);
+                        scriptModal += departamentoRegraNegocios.GerarScriptModal(id);
+
+                        if (cont == 4)
+                        {
+                            cont = 0;
+                        }
+                        else
+                        {
+                            cont++;
+                        }
                     }
 
                     iFrameIndex.Controls.Add(new LiteralControl(layoutIndex));
+                    iFrameScript.Controls.Add(new LiteralControl(scriptModal));
                 }
             }
             catch

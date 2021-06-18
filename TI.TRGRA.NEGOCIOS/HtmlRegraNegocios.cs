@@ -15,7 +15,7 @@ namespace TI.TRGRA.NEGOCIOS
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.Append("<a href=\"" + url + ".aspx\" class=\"navbar-brand\">");
+                sb.Append("<a href=\"" + nome.Replace(" ", "-").ToLower().Trim() + ".aspx\" class=\"navbar-brand\">");
                 sb.Append("<img class=\"imagelogo\" src=\"" + urlLogo + "\" height =\"50\" alt=\"CoolBrand\"/>");
                 sb.Append("<p class=\"produtosIntTitulo\">" + telefone + "</p>");
 

@@ -2,7 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
 
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
@@ -19,6 +21,7 @@
         });
 
     </script>
+
     <style>
         .strong {
             color: red;
@@ -173,7 +176,7 @@
                 let nomeUsuario = localStorage.setItem("valor" + 0, valor);
 
                 if (nomeUsuario.length > 0) {
-                    window.location.href = "VerCarrinho.aspx";
+                    window.location.href = "meucarrinho.aspx";
                 }
             };
 

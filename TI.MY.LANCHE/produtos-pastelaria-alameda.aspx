@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="lista-produtos.aspx.cs" Inherits="TI.MY.LANCHE.list" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="produtos-pastelaria-alameda.aspx.cs" Inherits="TI.MY.LANCHE.list" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -9,11 +9,13 @@
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
 
     <script>
+        var valornome = $(".nomeEmpresa").text();
+
+        var x = window.document.getElementById('nomeEmpresa').innerHTML = valornome.toString().replace("PRODUTOS", "").replace("-", " ").trim();
 
         window.addEventListener("load", function (event) {
 
             var url_atual = window.location.href;
-
             var data = sessionStorage.getItem('chave');
 
             if (data === 'fechado') {
@@ -23,8 +25,6 @@
             if (localStorage.getItem('listaDados') != "") {
                 var valorDaDiv = $(".produtosIntTitulo").text();
                 $("#orcamentoAssuntoForm").val(valorDaDiv);
-
-                var valornome = $(".nomeEmpresa").text();
 
                 var url_atual = window.location.href;
             }

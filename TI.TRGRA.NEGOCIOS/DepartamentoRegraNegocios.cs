@@ -219,7 +219,7 @@ namespace TI.REGRA.NEGOCIOS
                 sb.Append("<div class=\"row main-low-margin text-center\">");
                 sb.Append("<div class=\"card-deck\">");
                 sb.Append("<div class=\"card\">");
-                sb.Append("<a href=\"..\\lista-produtos.aspx?id=" + id + "\">");
+                sb.Append("<a href=\"produtos-pastelaria-alameda.aspx?id=" + id + "\">");
                 sb.Append("<img class=\"card-img-top\" src=\"" + url + "\" alt=\"" + descDep + "\" height=\"300\" width=\"200\"/>");
                 sb.Append("<div class\"card-body\">");
                 sb.Append("<h5 class=\"card-title\">" + descDep + "</h5>");

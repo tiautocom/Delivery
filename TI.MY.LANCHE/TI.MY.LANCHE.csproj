@@ -157,7 +157,7 @@
     <Content Include="index.html" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
-    <Content Include="lista-produtos.aspx" />
+    <Content Include="produtos-pastelaria-alameda.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="lu-lanches.aspx" />
     <Content Include="meu-carrinho.aspx" />
@@ -333,12 +333,12 @@
     <Compile Include="degraus-nautico.aspx.designer.cs">
       <DependentUpon>degraus-nautico.aspx</DependentUpon>
     </Compile>
-    <Compile Include="lista-produtos.aspx.cs">
-      <DependentUpon>lista-produtos.aspx</DependentUpon>
+    <Compile Include="produtos-pastelaria-alameda.aspx.cs">
+      <DependentUpon>produtos-pastelaria-alameda.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="lista-produtos.aspx.designer.cs">
-      <DependentUpon>lista-produtos.aspx</DependentUpon>
+    <Compile Include="produtos-pastelaria-alameda.aspx.designer.cs">
+      <DependentUpon>produtos-pastelaria-alameda.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

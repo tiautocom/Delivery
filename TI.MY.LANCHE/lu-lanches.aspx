@@ -10,7 +10,6 @@
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
 
     <script>
-
         window.addEventListener("load", function (event) {
             var valorDaDiv = $(".produtosIntTitulo").text();
             $("#orcamentoAssuntoForm").val(valorDaDiv);

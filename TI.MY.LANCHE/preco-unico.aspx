@@ -1,11 +1,12 @@
-﻿<%@ Page Title="APP Pastelaria Alameda" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pastelarias-alameda.aspx.cs" Inherits="TI.MY.LANCHE.pastelaria_alameda" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="preco-unico.aspx.cs" Inherits="TI.MY.LANCHE.preco_unico" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-    <asp:PlaceHolder ID="iFrameScript" runat="server" />
+    <asp:placeholder id="iFrameScript" runat="server" />
 
     <script>
         window.addEventListener("load", function (event) {
@@ -15,8 +16,9 @@
             var valornome = $(".nomeEmpresa").text();
 
             localStorage.setItem("nomeEmpresaWatts", valornome);
-        });
 
+            sessionStorage.setItem('chave', 'aberto');
+        });
     </script>
 
     <style>
@@ -114,9 +116,7 @@
     </style>
 
     <script>
-
         function aletrarNumPedido() {
-
             var numPedido = Number(localStorage.getItem("numPedido", numPedido));
 
             if (numPedido == 0) {
@@ -129,25 +129,18 @@
             localStorage.setItem("numPedido", numPedido);
             alert(numPedido);
         }
-
     </script>
 
     <div class="shadowBox">
-        <asp:PlaceHolder ID="iFrameEstabelecimento" runat="server" />
 
         <div class="page-container">
             <div class="container">
 
-                <h6>
-                    <strong>
-                        <asp:Literal ID="Departamentos" runat="server" />
-                    </strong>
-                </h6>
+                <asp:placeholder id="iFrameEstabelecimento" runat="server" />
 
                 <div class="row">
-                    <asp:PlaceHolder ID="iFrameIndex" runat="server" />
+                    <asp:placeholder id="iFrameIndex" runat="server" />
                 </div>
-
             </div>
         </div>
 
@@ -167,8 +160,19 @@
 
                 alert("Produto adicionado ao carrinho!\n\nValor Total Pedido de R$ " + valor.toFixed(2));
 
-                window.location.href = "pastelaria-alameda.aspx";
+                const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+
+                window.location.href = nomeEmpresaZ + ".aspx";
             }
+
+            function IrCarrinho() {
+
+                let nomeUsuario = localStorage.setItem("valor" + 0, valor);
+
+                if (nomeUsuario.length > 0) {
+                    window.location.href = "meu-carrinho.aspx";
+                }
+            };
 
             function moeda(a, e, r, t) {
                 alert("moeda");

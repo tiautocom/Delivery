@@ -110,11 +110,35 @@
     <Content Include="images\index\app1.jpg" />
     <Content Include="images\index\app2.jpg" />
     <Content Include="images\index\app3.jpg" />
+    <Content Include="img\departamentos\1\bebidas.jpg" />
+    <Content Include="img\departamentos\1\pastel-aliche.jpg" />
+    <Content Include="img\departamentos\1\pastel-atum.jpg" />
+    <Content Include="img\departamentos\1\pastel-bacalhal.jpg" />
+    <Content Include="img\departamentos\1\pastel-brocolis.jpg" />
+    <Content Include="img\departamentos\1\pastel-calabresajpg.jpg" />
+    <Content Include="img\departamentos\1\pastel-camarao.jpg" />
+    <Content Include="img\departamentos\1\pastel-carnseca.jpg" />
+    <Content Include="img\departamentos\1\pastel-catupiry.jpg" />
+    <Content Include="img\departamentos\1\pastel-de-carne.jpg" />
+    <Content Include="img\departamentos\1\pastel-frango.png" />
+    <Content Include="img\departamentos\1\pastel-linguica.jpg" />
+    <Content Include="img\departamentos\1\pastel-lombo.jpg" />
+    <Content Include="img\departamentos\1\pastel-misto.jpg" />
+    <Content Include="img\departamentos\1\pastel-mortadela.jpg" />
+    <Content Include="img\departamentos\1\pastel-palmito.jpg" />
+    <Content Include="img\departamentos\1\pastel-provolone.jpg" />
+    <Content Include="img\departamentos\1\pastel-tradicional.png" />
+    <Content Include="img\departamentos\1\pastelao.jpg" />
+    <Content Include="img\departamentos\1\presunto-queijo.jpg" />
+    <Content Include="img\departamentos\6\frutas-variadas.jpg" />
+    <Content Include="img\departamentos\6\legumes-variadas.jpg" />
+    <Content Include="img\departamentos\salgados.jpg" />
     <Content Include="img\logo\1\logo.jpg" />
     <Content Include="img\logo\2\lu-lanhes.png" />
     <Content Include="img\logo\3\nautico.jpg" />
     <Content Include="img\logo\4\cmbuffet.jpg" />
     <Content Include="img\logo\5\degraus.jpg" />
+    <Content Include="img\logo\6\preco-unico.jpg" />
     <Content Include="img\produtos\1\camarao-creme.jpg" />
     <Content Include="img\produtos\1\carnsecatomate.jpg" />
     <Content Include="img\produtos\1\palmito-presunto-queijo.jpg" />
@@ -136,14 +160,18 @@
     <Content Include="index.html" />
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
+    <Content Include="preco-unico.aspx" />
+    <Content Include="produtos-pastelaria-alameda.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="lu-lanches.aspx" />
+    <Content Include="meu-carrinho.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="pastelaria-alameda.aspx" />
     <Content Include="carlos-buffet.aspx" />
+    <Content Include="pastelaria-alameda.aspx" />
+    <Content Include="produtos-preco-unico.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="css\JudasPriest win.ttf" />
     <Content Include="css\JudasPriest.ttf" />
@@ -299,7 +327,6 @@
     <Content Include="vendor\select2\select2.min.css" />
     <Content Include="vendor\select2\select2.min.js" />
     <Content Include="vendor\tilt\tilt.jquery.min.js" />
-    <Content Include="VerCarrinho.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -309,6 +336,20 @@
     </Compile>
     <Compile Include="degraus-nautico.aspx.designer.cs">
       <DependentUpon>degraus-nautico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="preco-unico.aspx.cs">
+      <DependentUpon>preco-unico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="preco-unico.aspx.designer.cs">
+      <DependentUpon>preco-unico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="produtos-pastelaria-alameda.aspx.cs">
+      <DependentUpon>produtos-pastelaria-alameda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="produtos-pastelaria-alameda.aspx.designer.cs">
+      <DependentUpon>produtos-pastelaria-alameda.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -324,12 +365,26 @@
     <Compile Include="lu-lanches.aspx.designer.cs">
       <DependentUpon>lu-lanches.aspx</DependentUpon>
     </Compile>
+    <Compile Include="meu-carrinho.aspx.cs">
+      <DependentUpon>meu-carrinho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="meu-carrinho.aspx.designer.cs">
+      <DependentUpon>meu-carrinho.aspx</DependentUpon>
+    </Compile>
     <Compile Include="pastelaria-alameda.aspx.cs">
       <DependentUpon>pastelaria-alameda.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pastelaria-alameda.aspx.designer.cs">
       <DependentUpon>pastelaria-alameda.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="produtos-preco-unico.aspx.cs">
+      <DependentUpon>produtos-preco-unico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="produtos-preco-unico.aspx.designer.cs">
+      <DependentUpon>produtos-preco-unico.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -350,13 +405,6 @@
     </Compile>
     <Compile Include="Site1.Master.designer.cs">
       <DependentUpon>Site1.Master</DependentUpon>
-    </Compile>
-    <Compile Include="VerCarrinho.aspx.cs">
-      <DependentUpon>VerCarrinho.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="VerCarrinho.aspx.designer.cs">
-      <DependentUpon>VerCarrinho.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace TI.MY.LANCHE
 {
 
 
-    public partial class VerCarrinho
+    public partial class meucarrinho
     {
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Bem Vindo a Pastelaria Alameda" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TI.MY.LANCHE.Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="preco-unico.aspx.cs" Inherits="TI.MY.LANCHE.preco_unico" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -6,7 +6,21 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-    <asp:PlaceHolder ID="iFrameScript" runat="server" />
+    <asp:placeholder id="iFrameScript" runat="server" />
+
+    <script>
+        window.addEventListener("load", function (event) {
+            var valorDaDiv = $(".produtosIntTitulo").text();
+            $("#orcamentoAssuntoForm").val(valorDaDiv);
+
+            var valornome = $(".nomeEmpresa").text();
+
+            localStorage.setItem("nomeEmpresaWatts", valornome);
+
+            sessionStorage.setItem('chave', 'aberto');
+        });
+    </script>
+
     <style>
         .strong {
             color: red;
@@ -15,6 +29,11 @@
         dados {
             width: 100%;
             color: red;
+        }
+
+        .produtosIntTitulo {
+            visibility: hidden;
+            margin-top: -49px;
         }
 
         .material-icons {
@@ -65,30 +84,39 @@
         .fa-whatsapp {
             margin-top: 16px;
         }
+
+        strong {
+            font-size: 21px;
+            margin-right: inherit;
+            color: #d34000;
+        }
+
+        .strong-preco {
+            font-size: 30px;
+            margin-right: inherit;
+            color: red;
+        }
+
+        .card-title {
+            color: black;
+        }
+
+        .modal-title {
+            color: black;
+        }
+
+        .imagelogo {
+            border-radius: 100%;
+        }
+
+        .alert {
+            margin-top: 8px;
+            text-align-last: center;
+        }
     </style>
 
     <script>
-        //window.addEventListener("load", function (event) {
-
-        //    var numPedido = Number(localStorage.getItem("numPedido", numPedido));
-        //    var numCelularCliente = Number(localStorage.getItem("numCelular", numPedido));
-
-        //    if (numCelularCliente === '') {
-        //        if (numPedido == 0) {
-        //            numPedido = 1;
-        //        }
-
-        //        localStorage.getItem("numPedido", numPedido);
-        //        localStorage.setItem("numPedido", numPedido);
-
-        //        alert(numPedido);
-        //    } else {
-        //        window.location.href = "Login.aspx";
-        //    }
-        //});
-
         function aletrarNumPedido() {
-
             var numPedido = Number(localStorage.getItem("numPedido", numPedido));
 
             if (numPedido == 0) {
@@ -101,27 +129,19 @@
             localStorage.setItem("numPedido", numPedido);
             alert(numPedido);
         }
-
     </script>
 
     <div class="shadowBox">
 
         <div class="page-container">
             <div class="container">
-                <h6>
-                    <strong>
-                        <asp:Literal ID="Departamentos" runat="server" />
-                    </strong>
-                </h6>
+
+                <asp:placeholder id="iFrameEstabelecimento" runat="server" />
 
                 <div class="row">
-                    <asp:PlaceHolder ID="iFrameIndex" runat="server" />
+                    <asp:placeholder id="iFrameIndex" runat="server" />
                 </div>
             </div>
-
-      <%--      <a class="whatsapp-link" href="https://api.whatsapp.com/send?phone=5516%988285285&text=*Pedido%20rhEBeYDin*%20-%20*Pastelaria%Alameda*%0A---------------------------%0A%0A*4x%20Coca-cola%201%2C5L%20R%24%2020%2C00*%20_c%C3%B3d.%2045XV_%20%0A*1x%20Mega%20Burguer*%20_c%C3%B3d.%205RYK_%20%0A%20%E2%80%A2%20Frances%20%0A%0A*Subtotal%3A*%20R%24%2020%2C00%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total%3A*%20R%24%2020%2C00%0A%0A---------------------------%0A*Retirada%20no%20local*%0A%0A*Pagamento%3A*%20Dinheiro%0A%0AAcompanhe%20seu%20pedido%20em%3A%0Aapp.qrmenus.com.br%2Fdemo-burguer%2Forder%2FrhEBeYDin" target="_blank">
-                <i class="fa fa-whatsapp"></i>
-            </a>--%>
         </div>
 
         <script>
@@ -140,7 +160,9 @@
 
                 alert("Produto adicionado ao carrinho!\n\nValor Total Pedido de R$ " + valor.toFixed(2));
 
-                window.location.href = "Default.aspx";
+                const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+
+                window.location.href = nomeEmpresaZ + ".aspx";
             }
 
             function IrCarrinho() {
@@ -148,60 +170,9 @@
                 let nomeUsuario = localStorage.setItem("valor" + 0, valor);
 
                 if (nomeUsuario.length > 0) {
-                    window.location.href = "VerCarrinho.aspx";
+                    window.location.href = "meu-carrinho.aspx";
                 }
             };
-
-            //function retornoTotal() {
-            //    let valortotal = document.querySelector("#total");
-            //    return moedaParaFloat(valortotal.innerHTML);
-            //}
-
-            //function escreverTotal(_valor) {
-            //    let valortotalEsc = document.querySelector("#total");
-            //    valortotalEsc.innerHTML = floatParaMoeda(_valor);
-            //}
-
-            //function calcularTotaProdutos() {
-
-            //    let todoProdutos = document.querySelectorAll('.plus1');
-            //    let todaQuantidade = document.querySelectorAll('.quant1');
-
-            //    // alert(todoProdutos);
-
-            //    let totaProduto = 0;
-
-            //    for (let i = 0; i < todoProdutos.length; i++) {
-            //        let umPreoc = moedaParaFloat(todoProdutos[i].innerHTML);
-            //        let umaQtde = moedaParaFloat(todaQuantidade[i].value);
-            //        let subtotal = umPreoc * umaQtde;
-
-            //        totaProduto += subtotal;
-            //    }
-
-            //    return totaProduto;
-            //}
-
-            //function qtdeMudou() {
-
-            //    escreverTotal(calcularTotaProdutos());
-            //}
-
-            //function aoCarregarPagina() {
-            //    let quantidade = document.querySelectorAll('.quantidade');
-
-            //    for (let x = 0; x < quantidade.length; x++) {
-            //        quantidade[x].onchange = (function () {
-            //            qtdeMudou();
-            //        });
-            //    }
-            //}
-
-            //window.onload = (function () {
-            //    //  alert("aqui");
-            //    aoCarregarPagina()
-            //    qtdeMudou()
-            //});
 
             function moeda(a, e, r, t) {
                 alert("moeda");
@@ -241,6 +212,8 @@
                 return !1
             }
 
-
         </script>
+
+    </div>
+
 </asp:Content>

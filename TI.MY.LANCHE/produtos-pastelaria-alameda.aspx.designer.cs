@@ -10,7 +10,7 @@
 namespace TI.MY.LANCHE {
     
     
-    public partial class degraus_nautico {
+    public partial class list {
         
         /// <summary>
         /// iFrameScript control.

@@ -1,11 +1,11 @@
-﻿<%@ Page Title="Meu Carrinho" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="VerCarrinho.aspx.cs" Inherits="TI.MY.LANCHE.VerCarrinho" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="meu-carrinho.aspx.cs" Inherits="TI.MY.LANCHE.meucarrinho" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <script>
         window.addEventListener("load", function (event) {
+            var url_atual = window.location.href;
             verPagina();
             gerarNumPedido();
         });
@@ -112,7 +112,7 @@
 
     <div class="container">
         <h2>Meu Carrinho</h2>
-
+        <hr />
         <div class="col-md-12">
 
             <div id="itens" class="itens"></div>
@@ -286,28 +286,36 @@
     <script>
 
         function pagamentos() {
+            var status = sessionStorage.getItem('statusEstabelecimetio');
 
-            var fp = window.document.getElementById("cidades");
-            var fr = window.document.getElementById("retirada");
-            var enderecoEntrega = window.document.getElementById("endereco");
+            if (status == "Estabelecimento Fechado!") {
+                alert('Opss... Estabelecimento Fechado');
+                var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "-").toLocaleLowerCase();
 
-            if (fr.value == "Balcão") {
-                if (fp.value == "") {
-                    alert("Informe uma Forma de Pagamento");
-                } else if (fr.value == "") {
-                    alert("Informe uma Forma de Retirada");
-                } else {
-                    pagamentoBalcao();
-                }
+                window.location.assign(nomeEmpresaZ + ".aspx");
             } else {
-                if (fp.value == "") {
-                    alert("Informe uma Forma de Pagamento");
-                } else if (fr.value == "") {
-                    alert("Informe uma Forma de Retirada");
-                } else if (enderecoEntrega.value == '') {
-                    alert("Informe uma Endereço de Entrega com Numero");
+                var fp = window.document.getElementById("cidades");
+                var fr = window.document.getElementById("retirada");
+                var enderecoEntrega = window.document.getElementById("endereco");
+
+                if (fr.value == "Balcão") {
+                    if (fp.value == "") {
+                        alert("Informe uma Forma de Pagamento");
+                    } else if (fr.value == "") {
+                        alert("Informe uma Forma de Retirada");
+                    } else {
+                        pagamentoBalcao();
+                    }
                 } else {
-                    pagamentoBalcao();
+                    if (fp.value == "") {
+                        alert("Informe uma Forma de Pagamento");
+                    } else if (fr.value == "") {
+                        alert("Informe uma Forma de Retirada");
+                    } else if (enderecoEntrega.value == '') {
+                        alert("Informe uma Endereço de Entrega com Numero");
+                    } else {
+                        pagamentoBalcao();
+                    }
                 }
             }
         };
@@ -335,10 +343,6 @@
                 var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", "%0A").replace(' ', "%20").trim();
             }
 
-            //for (var i = 0; i < listas.length - 1; i++) {
-            //    let textoWattas = listas[i];
-            //}
-
             let textoZap;
             let text;
 
@@ -351,8 +355,6 @@
                     textoZap += text.replace("undefined", "").replace(" ", "").trim().replace("undefined", "").trim() + "%0A";
                 }
             }
-
-            alert(textoZap);
 
             const subtotal = total.toFixed(2).replace(".", "%2C");
 
@@ -385,7 +387,9 @@
 
                 swal('Pedido Realizado com Sucesso!', 'Seu Pedido estara Pronto em 40 Minutos!', 'success')
 
-                for (var i = 0; i < 1000; i++) {
+                sessionStorage.setItem('chave', 'fechado');
+
+                for (var i = 0; i < 1; i++) {
 
                     limparCampos();
 
@@ -493,6 +497,7 @@
         function verPagina() {
             var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
             window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ.trim();
+
             if (Number(window.document.getElementById('total').innerHTML) == '0.00') {
                 window.history.back();
             }
@@ -514,4 +519,5 @@
         };
 
     </script>
+
 </asp:Content>

@@ -10,7 +10,7 @@
 namespace TI.MY.LANCHE {
     
     
-    public partial class pastelaria_alameda {
+    public partial class produtos {
         
         /// <summary>
         /// iFrameScript control.
@@ -22,13 +22,13 @@ namespace TI.MY.LANCHE {
         protected global::System.Web.UI.WebControls.PlaceHolder iFrameScript;
         
         /// <summary>
-        /// Departamentos control.
+        /// iFrameEstabelecimento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Departamentos;
+        protected global::System.Web.UI.WebControls.PlaceHolder iFrameEstabelecimento;
         
         /// <summary>
         /// iFrameIndex control.

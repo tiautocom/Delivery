@@ -10,7 +10,7 @@
 namespace TI.MY.LANCHE {
     
     
-    public partial class degraus_nautico {
+    public partial class preco_unico {
         
         /// <summary>
         /// iFrameScript control.
@@ -29,15 +29,6 @@ namespace TI.MY.LANCHE {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder iFrameEstabelecimento;
-        
-        /// <summary>
-        /// Departamentos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Departamentos;
         
         /// <summary>
         /// iFrameIndex control.

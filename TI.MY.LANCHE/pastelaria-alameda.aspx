@@ -1,4 +1,4 @@
-﻿<%@ Page Title="APP Pastelaria Alameda" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pastelaria-alameda.aspx.cs" Inherits="TI.MY.LANCHE.pastelaria_alameda" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="pastelaria-alameda.aspx.cs" Inherits="TI.MY.LANCHE.produtos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -15,6 +15,8 @@
             var valornome = $(".nomeEmpresa").text();
 
             localStorage.setItem("nomeEmpresaWatts", valornome);
+
+            sessionStorage.setItem('chave', 'aberto');
         });
     </script>
 
@@ -105,12 +107,15 @@
         .imagelogo {
             border-radius: 100%;
         }
+
+        .alert {
+            margin-top: 8px;
+            text-align-last: center;
+        }
     </style>
 
     <script>
-
         function aletrarNumPedido() {
-
             var numPedido = Number(localStorage.getItem("numPedido", numPedido));
 
             if (numPedido == 0) {
@@ -123,18 +128,14 @@
             localStorage.setItem("numPedido", numPedido);
             alert(numPedido);
         }
-
     </script>
 
     <div class="shadowBox">
 
         <div class="page-container">
             <div class="container">
-                <h6>
-                    <strong>
-                        <asp:Literal ID="Departamentos" runat="server" />
-                    </strong>
-                </h6>
+
+                <asp:PlaceHolder ID="iFrameEstabelecimento" runat="server" />
 
                 <div class="row">
                     <asp:PlaceHolder ID="iFrameIndex" runat="server" />
@@ -158,8 +159,19 @@
 
                 alert("Produto adicionado ao carrinho!\n\nValor Total Pedido de R$ " + valor.toFixed(2));
 
-                window.location.href = "pastelaria-alameda.aspx";
+                const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
+
+                window.location.href = nomeEmpresaZ + ".aspx";
             }
+
+            function IrCarrinho() {
+
+                let nomeUsuario = localStorage.setItem("valor" + 0, valor);
+
+                if (nomeUsuario.length > 0) {
+                    window.location.href = "meu-carrinho.aspx";
+                }
+            };
 
             function moeda(a, e, r, t) {
                 alert("moeda");

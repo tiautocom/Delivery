@@ -10,19 +10,21 @@ using TI.TRGRA.NEGOCIOS;
 
 namespace TI.MY.LANCHE
 {
-    public partial class lu_lanches : System.Web.UI.Page
+    public partial class preco_unico : System.Web.UI.Page
     {
         DepartamentoRegraNegocios departamentoRegraNegocios;
         PessoaRegraNegocios pessoaRegraNegocios;
         HtmlRegraNegocios htmlRegraNegocios;
 
-        public int idEmpresa = 2;
+        public int idEmpresa = 6;
         public int id = 0;
         public string layoutIndex, htmlindexModal = "";
-        public string scriptModal, scriptAddCarrinho, abertura, fechamento = "";
-        public string desc, det, url, preco, tel = "";
+        public string scriptModal, scriptAddCarrinho = "";
+        public string desc, descDep, det, url, preco, tel = "";
         public int cont = 0;
         public string nomeEmpresa, layoutLogo, urlLogo, layoutEstabelicmento = "";
+        public bool statusEmpresa;
+        public string abertura, fechamento;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,14 +49,14 @@ namespace TI.MY.LANCHE
 
                 if (dadosTabela.Rows.Count > 0)
                 {
-                    Session["idEmpresa"] = idEmpresa = Convert.ToInt32(dadosTabela.Rows[0]["ID"].ToString());
+                    Session["idEmpresa"] = idEmpresa;
                     nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString().Trim();
                     urlLogo = dadosTabela.Rows[0]["IMG_LOGO"].ToString().Trim();
                     tel = dadosTabela.Rows[0]["TELEFONE"].ToString().Trim();
                     abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
                     fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "lu-lanches", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "preco-unico", tel);
                     layoutEstabelicmento = htmlRegraNegocios.GerarStatusEstabelcimento(abertura, fechamento);
 
                     Session["iFramelogoScript"] = layoutLogo;
@@ -64,6 +66,7 @@ namespace TI.MY.LANCHE
             }
             else
             {
+                Response.Redirect("index.aspx", false);
                 Session["iFramelogoScript"] = null;
                 Session["Departamento"] = null;
                 Session["iFrameIndex"] = null;
@@ -78,44 +81,26 @@ namespace TI.MY.LANCHE
 
                 departamentoRegraNegocios = new DepartamentoRegraNegocios();
 
-                dadosTabela = departamentoRegraNegocios.Pesquisar(idEmpresa);
+                dadosTabela = departamentoRegraNegocios.PesquisarDepartamentosIdEmpresa(idEmpresa);
 
                 layoutIndex = "";
                 scriptModal = "";
 
                 if (dadosTabela.Rows.Count > 0)
                 {
-                    Departamentos.Text = dadosTabela.Rows[0]["DEPARTAMENTO"].ToString().Trim();
-
                     for (int i = 0; i < dadosTabela.Rows.Count; i++)
                     {
-                        url = dadosTabela.Rows[i]["URL_PRODUTO"].ToString().Trim();
-                        desc = dadosTabela.Rows[i]["PRODUTO"].ToString().Trim();
-                        det = dadosTabela.Rows[i]["INGREDIENTES"].ToString().Trim();
-                        id = Convert.ToInt32(dadosTabela.Rows[i]["ID_PRODUTO"].ToString());
-                        preco = dadosTabela.Rows[i]["PRECO"].ToString().Trim();
+                        url = dadosTabela.Rows[i]["URL"].ToString().Trim();
+                        desc = dadosTabela.Rows[i]["DESCRICAO"].ToString().Trim();
+                        descDep = dadosTabela.Rows[i]["DESCRICAO_DEPARTAMENTO"].ToString().Trim();
+                        id = Convert.ToInt32(dadosTabela.Rows[i]["ID"].ToString().Trim());
 
                         Session["idEmpresa"] = Convert.ToInt32(dadosTabela.Rows[0]["ID_EMPRESA"].ToString());
 
-                        layoutIndex += departamentoRegraNegocios.GerarIndex(id, url, desc, det, preco, cont, tel);
-                        scriptModal += departamentoRegraNegocios.GerarScriptModal(id);
-
-                        if (cont == 4)
-                        {
-                            cont = 0;
-                        }
-                        else
-                        {
-                            cont++;
-                        }
+                        layoutIndex += departamentoRegraNegocios.GerarCardsDepartanentos(id, url, desc, descDep, "preco-unico.aspx");
                     }
 
                     iFrameIndex.Controls.Add(new LiteralControl(layoutIndex));
-                    iFrameScript.Controls.Add(new LiteralControl(scriptModal));
-                }
-                else
-                {
-                    Response.Redirect("index.aspx", false);
                 }
             }
             catch

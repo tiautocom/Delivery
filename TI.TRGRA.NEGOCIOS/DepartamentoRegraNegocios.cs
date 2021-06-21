@@ -122,6 +122,21 @@ namespace TI.REGRA.NEGOCIOS
             }
         }
 
+        public DataTable ListaDepartamento()
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamento");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public string GerarIndexDepartamento(int id, string url, string desc, string det, string preco, int cont, string tel)
         {
             try

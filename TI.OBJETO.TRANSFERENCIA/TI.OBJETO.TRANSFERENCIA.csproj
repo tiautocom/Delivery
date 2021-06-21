@@ -43,6 +43,7 @@
     <Compile Include="Departamento.cs" />
     <Compile Include="Departamento_Produto.cs" />
     <Compile Include="EmpresaPJ.cs" />
+    <Compile Include="Pedidos.cs" />
     <Compile Include="Pessoa.cs" />
     <Compile Include="PessoaEndereco.cs" />
     <Compile Include="Producto.cs" />

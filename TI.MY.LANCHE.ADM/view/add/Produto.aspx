@@ -8,13 +8,20 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <h3 class="page-header">Cadastro de Produto
-                <asp:Label ID="lblEmpresa" runat="server" Text=""></asp:Label>
+     
                 </h3> 
                    
             </div>
-             <asp:DropDownList ID="ddlEmpresa" CssClass="form-control" runat="server" class="form-control col-md-3" ControlToValidate="ddlEmpresa" ErrorMessage="Campo Obrigatório." Visible="false" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged">
-                </asp:DropDownList>
+          
         </div>
+              <div class="row">   
+                   <div class="form-group col-md-6">
+                                  <asp:Label ID="lblEmpresa" runat="server" Text=""></asp:Label>
+                       <asp:DropDownList ID="ddlEmpresa" CssClass="form-control" runat="server" class="form-control col-md-3" ControlToValidate="ddlEmpresa" ErrorMessage="Campo Obrigatório." Visible="false" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged">
+                </asp:DropDownList>
+                   </div>
+
+              </div>
 
         <div class="row">
             <div class="form-group col-md-4">

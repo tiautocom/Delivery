@@ -363,9 +363,23 @@
             var enderecoEntrega = window.document.getElementById("endereco");
             var referencia = window.document.getElementById("referencia");
             var troco = window.document.getElementById("valor");
+            var taxaEntrega = '0.00';
 
             if (enderecoEntrega.value == "") {
                 texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + textoZap.replace("undefined", " ").trim() + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+
+                var fp = window.document.getElementById("cidades");
+
+                var objTroco = troco.value;
+
+                if (objTroco === '') {
+                    objTroco = '0.00';
+                }
+
+                var someSession = '<%= Session["idEmpresa"].ToString() %>';
+
+                salvarPedidos(numeroPedido, fp.value, objTroco, taxaEntrega, celularCliente, texto, total, someSession);
+
             } else {
                 if (referencia.value == "") {
                     referencia.value = "sem";
@@ -377,6 +391,17 @@
                 var textoendereco = "%0A%0A*ENDEREÇO%20ENTREGA:*%20%20" + enderecoEntrega.value.toUpperCase() + "%20.%0A*REFERENCIA:*%20" + referencia.value.toUpperCase() + "%0A*TROCO%20PARA:*%20" + troco.value;
 
                 texto = ("https://api.whatsapp.com/send?phone=55" + celularCliente + "&text=*" + pedido + "*%20%20%0A%0A%0A" + nomeEmpresaZ + "%20AGRADECE%20SUA%20PREFERENCIA%0A%0A*----------------------------*%0A%0A" + textoZap.replace("undefined", " ").trim() + "%0A%0A%0A*Subtotal%3A*%20R%24%20" + subtotal + "%0A*Taxa%20de%20entrega%3A*%20Gr%C3%A1tis%0A*Taxa%20de%20embalagem%3A*%20Gr%C3%A1tis%0A%0A*Total:*%20R%24%20" + subtotal + "%0A%0A---------------------------%0A*Tipo%20Retirada:*%20" + tiporetirada + textoendereco + "%0A%0A*Pagamento%3A*%20" + tipopagamento + "%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20SEU%20PEDIDO%20FOI%20REALIZADO%20COM%20SUCESSO%20%20%0A%0A%0A%0A*Tempo%20Estimado%20de%2030%20à%2055%20Minutos.*%0A%0AAcompanhe%20seu%20App%20%20em%3A%0A%20:%20http://idisque.com.br/" + nomeEmpresaZ.toString().toLowerCase().replace("%20", "-") + ".aspx").replace("<hr>", "%0A%0A").replace("<strong>", "*");
+
+                var fp = window.document.getElementById("cidades");
+
+                var objTroco = troco.value;
+
+                if (objTroco === '') {
+                    objTroco = '0.00';
+                }
+                var someSession = '<%= Session["idEmpresa"].ToString() %>';
+
+                salvarPedidos(numeroPedido, fp.value, objTroco, taxaEntrega, celularCliente, texto, total, someSession);
             }
 
             var test = document.getElementById('mensagem-sucesso').onclick = function () {
@@ -518,6 +543,43 @@
             window.document.getElementById('numPedido').innerHTML = ("Nº Pedido: " + numeroPedido);
         };
 
+    </script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        function salvarPedidos(_pedido, _pagto, _troco, _taxaEntrega, _celularCliente, _text, _total, _idEmpresa) {
+            $(document).ready(function () {
+                $("#mensagem-sucesso").click(function () {
+                    var data = {
+                        pedido: {
+                            numeroPedido: _pedido,
+                            tipoPagamento: _pagto,
+                            trocoPara: _troco,
+                            taxaEntrega: _taxaEntrega,
+                            telefone: _celularCliente,
+                            pedidotexto: _text,
+                            total: _total,
+                            idEmpresa: _idEmpresa
+                        }
+                    };
+                    alert(data);
+                    $.ajax({
+                        url: "meu-carrinho.aspx/SalvarPedido",
+                        data: JSON.stringify(data),
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (resultado) {
+                            alert(resultado.d);
+                        }
+                    });
+
+                    return false;
+                });
+            });
+        }
     </script>
 
 </asp:Content>

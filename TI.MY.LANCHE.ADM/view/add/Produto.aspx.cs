@@ -35,6 +35,7 @@ namespace TI.MY.LANCHE.ADM.view.add
 
 
         #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -46,13 +47,12 @@ namespace TI.MY.LANCHE.ADM.view.add
 
                 idEmpresa = Request.QueryString["idEmpresa"];
 
-                if (idEmpresa is null)
+                if (idEmpresa == null)
                 {
                     ddlEmpresa.Visible = true;
                     ListaEmpresas();
                 }
             }     
-
         }
 
         private void ListaEmpresas()

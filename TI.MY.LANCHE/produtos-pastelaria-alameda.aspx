@@ -154,9 +154,14 @@
     <script>
 
         function AddCarrinho(produto, qtd, valor, posicao, obs) {
+
+            localStorage.setItem("produto" + posicao, produto);
+
+            valor = valor * qtd;
+
             localStorage.setItem("produto" + posicao, produto);
             localStorage.setItem("quantidade" + posicao, qtd);
-            valor = valor * qtd;
+
             localStorage.setItem("valor" + posicao, valor);
 
             if ((obs === "") || (obs === null)) {

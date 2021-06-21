@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <script>
         window.addEventListener("load", function (event) {
+
             var url_atual = window.location.href;
             verPagina();
             gerarNumPedido();
@@ -125,7 +126,7 @@
                 var valor = 0; // variável que irá receber o preço do produto convertido em Float.
                 var listas = [];
 
-                for (i = 1; i <= 99; i++) // verifica até 99 produtos registrados na localStorage
+                for (i = 1; i <= 2000; i++) // verifica até 99 produtos registrados na localStorage
                 {
                     var prod = localStorage.getItem("produto" + i + ""); // verifica se há recheio nesta posição. 
                     var qt = localStorage.getItem("valor" + i);
@@ -205,7 +206,7 @@
             </script>
 
             <button type="button" onclick="limparCarrinho();" class="btn btn-danger">Limpar carrinho</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" onclick="limparCampos()">Fechar Venda</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" onclick="pagamentoBalcao">Fechar Venda</button>
 
             <div id="numPedido" class="numPedido">Pedido Nº:</div>
 
@@ -283,17 +284,20 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
 
         function pagamentos() {
-            var status = sessionStorage.getItem('statusEstabelecimetio');
+            var data = sessionStorage.getItem('statusEstabelecimetio');
 
-            if (status == "Estabelecimento Fechado!") {
-                alert('Opss... Estabelecimento Fechado');
+            if (data == "Estabelecimento Fechado!") {
+
+                alert('Opss... Estabelecimento Fechado!!!');
+
                 var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "-").toLocaleLowerCase();
 
                 window.location.assign(nomeEmpresaZ + ".aspx");
-            } else {
+            }
+            else {
                 var fp = window.document.getElementById("cidades");
                 var fr = window.document.getElementById("retirada");
                 var enderecoEntrega = window.document.getElementById("endereco");
@@ -337,7 +341,7 @@
             const nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim().replace(" ", "%20");
 
             var pedido = "Pedido Nº : " + numeroPedido.replace(" ", "%20");
-            var celularCliente = $(".produtosIntTitulo").text();
+            var celularCliente = $(".produtosIntTitulo").text().substring(1, 12);
 
             for (var i = 30; i >= 0; i--) {
                 var novalista = lista.trim().replace("<strong>", "*").replace("</strong>", "*").replace("<hr>", "%0A").replace(' ', "%20").trim();
@@ -376,9 +380,11 @@
                     objTroco = '0.00';
                 }
 
-                var someSession = '<%= Session["idEmpresa"].ToString() %>';
+                var someSession = $(".produtosIntTitulo").text().substring(0, 1);
 
-                salvarPedidos(numeroPedido, fp.value, objTroco, taxaEntrega, celularCliente, texto, total, someSession);
+                const totalConveert = parseFloat(total).toFixed(2).toString().trim();
+
+                salvarPedidos(numeroPedido, fp.value, objTroco, taxaEntrega, celularCliente, texto, totalConveert, someSession);
 
             } else {
                 if (referencia.value == "") {
@@ -399,7 +405,10 @@
                 if (objTroco === '') {
                     objTroco = '0.00';
                 }
-                var someSession = '<%= Session["idEmpresa"].ToString() %>';
+
+                var someSession = $(".produtosIntTitulo").text().substring(0, 1);
+
+                const totalConveert = parseFloat(total).toFixed(2).toString().trim();
 
                 salvarPedidos(numeroPedido, fp.value, objTroco, taxaEntrega, celularCliente, texto, total, someSession);
             }
@@ -523,6 +532,8 @@
             var nomeEmpresaZ = localStorage.getItem("nomeEmpresaWatts").toString().trim();
             window.document.getElementById('nomeEmpresa').innerHTML = nomeEmpresaZ.trim();
 
+            document.getElementById("somatotal").innerHTML = total.toFixed(2).toString().replace(".", ",");
+
             if (Number(window.document.getElementById('total').innerHTML) == '0.00') {
                 window.history.back();
             }
@@ -550,6 +561,9 @@
     <script type="text/javascript">
 
         function salvarPedidos(_pedido, _pagto, _troco, _taxaEntrega, _celularCliente, _text, _total, _idEmpresa) {
+
+            //alert(_pedido + "," + _pagto + "," + _troco  + "," + _taxaEntrega + "," + _celularCliente + "," + _text + "," + _total + "," + _idEmpresa);
+
             $(document).ready(function () {
                 $("#mensagem-sucesso").click(function () {
                     var data = {
@@ -564,7 +578,6 @@
                             idEmpresa: _idEmpresa
                         }
                     };
-                    alert(data);
                     $.ajax({
                         url: "meu-carrinho.aspx/SalvarPedido",
                         data: JSON.stringify(data),

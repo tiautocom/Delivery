@@ -6,14 +6,51 @@
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
 
     <script>
+        var celUsuario = getCookie("nomeUsuario");
+
         window.addEventListener("load", function (event) {
-            var valorDaDiv = $(".produtosIntTitulo").text();
-            $("#orcamentoAssuntoForm").val(valorDaDiv);
+            if (celUsuario == null) {
+                var url_atual = window.location.href;
 
-            var valornome = $(".nomeEmpresa").text();
+                sessionStorage.setItem('urlLogin', url_atual);
 
-            localStorage.setItem("nomeEmpresaWatts", valornome);
+                window.location.href = "Login.aspx";
+            } else {
+                var valorDaDiv = $(".produtosIntTitulo").text();
+                $("#orcamentoAssuntoForm").val(valorDaDiv);
+
+                var valornome = $(".nomeEmpresa").text();
+
+                localStorage.setItem("nomeEmpresaWatts", valornome);
+            }
         });
+
+        function getCookie(name) {
+            var cookies = document.cookie;
+
+            var prefix = name + "=";
+            var begin = cookies.indexOf("; " + prefix);
+
+            if (begin == -1) {
+
+                begin = cookies.indexOf(prefix);
+
+                if (begin != 0) {
+                    return null;
+                }
+
+            } else {
+                begin += 2;
+            }
+
+            var end = cookies.indexOf(";", begin);
+
+            if (end == -1) {
+                end = cookies.length;
+            }
+
+            return unescape(cookies.substring(begin + prefix.length, end));
+        }
     </script>
 
     <style>

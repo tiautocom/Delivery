@@ -23,6 +23,7 @@ namespace TI.MY.LANCHE
         public string desc, det, url, preco, tel = "";
         public int cont = 0;
         public string nomeEmpresa, layoutLogo, urlLogo = "";
+        public string abertura, fechamento;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -52,9 +53,30 @@ namespace TI.MY.LANCHE
                     urlLogo = dadosTabela.Rows[0]["IMG_LOGO"].ToString().Trim();
                     tel = dadosTabela.Rows[0]["TELEFONE"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, nomeEmpresa, tel);
+                    abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
+                    fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
+
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, idEmpresa, nomeEmpresa, nomeEmpresa, tel);
 
                     Session["iFramelogoScript"] = layoutLogo;
+
+                    string variavelHora = htmlRegraNegocios.variavelHora;
+
+                    if (Convert.ToDateTime(abertura) > Convert.ToDateTime(variavelHora))
+                    {
+                        Session["sessionStatus"] = "fechado";
+                    }
+                    else
+                    {
+                        if (Convert.ToDateTime(variavelHora) < Convert.ToDateTime(fechamento))
+                        {
+                            Session["sessionStatus"] = "aberto";
+                        }
+                        else
+                        {
+                            Session["sessionStatus"] = "fechado";
+                        }
+                    }
                 }
             }
             else

@@ -11,6 +11,13 @@ namespace TI.MY.LANCHE.ADM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //string empresa = Request.QueryString["fantasia"];
+            //string idEmpresa = Request.QueryString["id"];
+            //if (empresa != null)
+            //{
+            //    lblEmpresa.Text = empresa;
+            //}
+
 
         }
     }

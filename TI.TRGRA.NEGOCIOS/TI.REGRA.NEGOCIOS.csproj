@@ -43,6 +43,7 @@
     <Compile Include="DepartamentoRegraNegocios.cs" />
     <Compile Include="HtmlRegraNegocios.cs" />
     <Compile Include="PessoaRegraNegocios.cs" />
+    <Compile Include="ProdutoRegraNegocios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

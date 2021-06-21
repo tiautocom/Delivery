@@ -23,6 +23,21 @@ namespace TI.TRGRA.NEGOCIOS
         DataTable dadosTabela = new DataTable();
         #endregion
 
+        public DataTable Pesquisar()
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresas");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public DataTable Pesquisar(int nomeEmpresa)
         {
             try
@@ -44,9 +59,9 @@ namespace TI.TRGRA.NEGOCIOS
             try
             {
                 conexaoSqlServer.LimparParametros();
-                conexaoSqlServer.AdicionarParametros("@NOME_EMPRESA", nomeEmpresa);
+                //conexaoSqlServer.AdicionarParametros("@NOME_EMPRESA", nomeEmpresa);
                 DataTable dadosTabela = new DataTable();
-                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresaNome");
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresas");
                 return dadosTabela;
             }
             catch (Exception ex)
@@ -60,6 +75,7 @@ namespace TI.TRGRA.NEGOCIOS
             try
             {
                 conexaoSqlServer.LimparParametros();
+                //conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
                 conexaoSqlServer.AdicionarParametros("@ID", idEmpresa);
                 DataTable dadosTabela = new DataTable();
                 dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresaId");
@@ -72,7 +88,7 @@ namespace TI.TRGRA.NEGOCIOS
         }
 
         #region Add_Update
-        public string AddEmpresa(Pessoa pessoa, EmpresaPJ empresa, int opcao)
+        public string AddEmpresa(Pessoa pessoa,  int opcao)
         {
             try
             {
@@ -88,12 +104,12 @@ namespace TI.TRGRA.NEGOCIOS
                 conexaoSqlServer.AdicionarParametros("@ATIVO", pessoa.Ativo);
 
                 conexaoSqlServer.AdicionarParametros("@STATUS", pessoa.Ativo);
-                conexaoSqlServer.AdicionarParametros("@IM", empresa.IM);
-                conexaoSqlServer.AdicionarParametros("@TELEFONE", empresa.Telefone);
-                conexaoSqlServer.AdicionarParametros("@HORA_INICIO", empresa.HoraAbertura);
-                conexaoSqlServer.AdicionarParametros("@HORA_FIM", empresa.HoraFechamento);
-                conexaoSqlServer.AdicionarParametros("@IMG_LOGO", empresa.Img_Logo);
-                conexaoSqlServer.AdicionarParametros("@ID_SETOR", empresa.idSetor);
+                conexaoSqlServer.AdicionarParametros("@IM", pessoa.Empresa.IM);
+                conexaoSqlServer.AdicionarParametros("@TELEFONE", pessoa.Empresa.Telefone);
+                conexaoSqlServer.AdicionarParametros("@HORA_INICIO", pessoa.Empresa.HoraAbertura);
+                conexaoSqlServer.AdicionarParametros("@HORA_FIM", pessoa.Empresa.HoraFechamento);
+                conexaoSqlServer.AdicionarParametros("@IMG_LOGO", pessoa.Empresa.Img_Logo);
+                conexaoSqlServer.AdicionarParametros("@ID_SETOR", pessoa.Empresa.idSetor);
                 //conexaoSqlServer.AdicionarParametros("@ID_PESSOA", empresa.idPessoa);
 
                 if (opcao == 1)

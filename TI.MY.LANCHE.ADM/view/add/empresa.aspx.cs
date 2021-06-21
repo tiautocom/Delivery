@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,7 +15,7 @@ namespace TI.MY.LANCHE.ADM.view.add
         #region CLASSES E OBJETOS
 
         Pessoa pessoa;
-        EmpresaPJ empresaPj;
+        //EmpresaPJ EmpresaPj;
         PessoaRegraNegocios pessoaRN;
 
 
@@ -23,6 +24,7 @@ namespace TI.MY.LANCHE.ADM.view.add
         #region VARIAVEIS
 
         string idRetorno = "";
+        string urlEndereco = "";
 
         #endregion
         protected void Page_Load(object sender, EventArgs e)
@@ -42,15 +44,15 @@ namespace TI.MY.LANCHE.ADM.view.add
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('* Campo Nome Fantasia não Pode ser Nulo ou Vázio')</script>");
                     Fantasia.Focus();
                 }
-                else if (Cnpj.Text.Trim().Equals(""))
+                else if (txtCnpj.Text.Trim().Equals(""))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('* Campo CNPJ não Pode ser Nulo ou Vázio')</script>");
-                    Cnpj.Focus();
+                    txtCnpj.Focus();
                 }
-                else if (Email.Text.Trim().Equals(""))
+                else if (txtEmail.Text.Trim().Equals(""))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('* Campo E-Mail não Pode ser Nulo ou Vázio')</script>");
-                    Email.Focus();
+                    txtEmail.Focus();
                 }
 
                 else
@@ -59,26 +61,28 @@ namespace TI.MY.LANCHE.ADM.view.add
                     pessoa = new Pessoa();
 
                     pessoa.Fantasia = Fantasia.Text.ToUpper().Trim();
-                    pessoa.CpfCnpj = Cnpj.Text.ToUpper().Replace(".", "").Replace("-", "").Replace("/", "").Trim();
+                    pessoa.CpfCnpj = txtCnpj.Text.ToUpper().Replace(".", "").Replace("-", "").Replace("/", "").Trim();
                     pessoa.RgIe = "";
-                    pessoa.Email = Email.Text.ToLower().Trim();
+                    pessoa.Email = txtEmail.Text.ToLower().Trim();
                     pessoa.Ativo = Convert.ToBoolean(ddlAtivo.SelectedValue);
 
+                    pessoa.Empresa = new EmpresaPJ();
 
-                    empresaPj = new EmpresaPJ();
-                    empresaPj.IM = "";
-                    empresaPj.Telefone = txtFone.Text;
-                    empresaPj.HoraAbertura = "";
-                    empresaPj.HoraFechamento = "";
-                    empresaPj.Img_Logo = "";
-                    empresaPj.idSetor = 1;
+                    pessoa.Empresa.IM = "";
+                    pessoa.Empresa.Telefone = txtFone.Text;
+                    pessoa.Empresa.HoraAbertura = txtHoraAbertura.ToString();
+                    pessoa.Empresa.HoraFechamento = txtHoraFechamnto.ToString();
+                    pessoa.Empresa.Img_Logo = "";
+                    pessoa.Empresa.idSetor = 1;
 
+                   
 
 
                     //PESSOA
                     pessoaRN = new PessoaRegraNegocios();
-                    idRetorno = pessoaRN.AddEmpresa(pessoa, empresaPj, 1);
-                    CreateDirectory();
+                    idRetorno = pessoaRN.AddEmpresa(pessoa, 1);
+                    
+
                     try
                     {
                         Convert.ToInt32(idRetorno);
@@ -102,7 +106,45 @@ namespace TI.MY.LANCHE.ADM.view.add
 
         private void CreateDirectory()
         {
+            Directory.CreateDirectory(Server.MapPath("~\\idisque\\" + idRetorno + "\\"));
+        }
 
+        public bool SalvarFotoArquivo()
+        {
+            try
+            {
+               
+                if (fupImagem.FileName == null)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Atenção, Informe Foto Desejado.')</script>");
+                    return false;
+                }
+                else if (fupImagem.FileName.ToString().Trim().Equals(""))
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Scripts", "<script>alert('Atenção, Informe Foto Desejado.')</script>");
+                    return false;
+                }
+                else
+                {
+
+                    CreateDirectory();
+
+                    string filepath = Server.MapPath(urlEndereco);
+
+                    fupImagem.PostedFile.SaveAs(filepath + "\\" + fupImagem.FileName);
+
+                    return true;
+                }
+
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Session["Error"] = ex.Message;
+                return false;
+            }
+            finally
+            {
+            }
         }
 
         protected void New_Click(object sender, EventArgs e)

@@ -31,22 +31,49 @@ namespace TI.MY.LANCHE.ADM.view.add {
         protected global::System.Web.UI.WebControls.TextBox txtFone;
         
         /// <summary>
-        /// Email control.
+        /// txtEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Email;
+        protected global::System.Web.UI.WebControls.TextBox txtEmail;
         
         /// <summary>
-        /// Cnpj control.
+        /// txtCnpj control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Cnpj;
+        protected global::System.Web.UI.WebControls.TextBox txtCnpj;
+        
+        /// <summary>
+        /// txtHoraAbertura control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHoraAbertura;
+        
+        /// <summary>
+        /// txtHoraFechamnto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHoraFechamnto;
+        
+        /// <summary>
+        /// fupImagem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fupImagem;
         
         /// <summary>
         /// ddlAtivo control.

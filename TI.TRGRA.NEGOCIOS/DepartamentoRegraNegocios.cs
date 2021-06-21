@@ -122,6 +122,11 @@ namespace TI.REGRA.NEGOCIOS
             }
         }
 
+        public DataTable ListaDepartamento()
+        {
+            throw new NotImplementedException();
+        }
+
         public string GerarIndexDepartamento(int id, string url, string desc, string det, string preco, int cont, string tel)
         {
             try
@@ -354,6 +359,24 @@ namespace TI.REGRA.NEGOCIOS
 
                 DataTable dadosTabela = new DataTable();
                 dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoIdEmpresa");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public DataTable Pesquisar(int idEmpresa, int idDepartamento)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@ID", idDepartamento);
+
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspDepartamentoProsutoListarIdDep");
                 return dadosTabela;
             }
             catch (Exception ex)

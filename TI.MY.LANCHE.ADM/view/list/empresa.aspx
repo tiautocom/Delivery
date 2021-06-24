@@ -57,7 +57,7 @@
                     <asp:BoundField DataField="TELEFONE" Visible="False" />--%>
                     <asp:TemplateField ShowHeader="False">
                         <ItemTemplate>
-                            <asp:Button ID="btnDetalhe" runat="server" Width="100%" BorderStyle="Double" CssClass="btn btn-info" Text="Detalhes" ToolTip="Detalhes da Empresa" Font-Size="Smaller" CommandName="EDITAR" CommandArgument='<%#  Eval("ID") %>' />
+                            <asp:Button ID="btnDetalhe" runat="server" Width="100%" BorderStyle="Double" CssClass="btn btn-info" Text="Cadastro" ToolTip="Detalhes da Empresa" Font-Size="Smaller" CommandName="EDITAR" CommandArgument='<%#  Eval("ID") %>' />
                         </ItemTemplate>
                         <ItemStyle Font-Size="Smaller" />
                     </asp:TemplateField>

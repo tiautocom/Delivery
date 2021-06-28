@@ -19,6 +19,5 @@ namespace TI.OBJETO.TRANSFERENCIA
         public Departamento  Departamento { get; set; }
         public Departamento_Produto Departamento_Produto { get; set; }
         public Produto_Observacao Produto_Observacao { get; set; }
-
     }
 }

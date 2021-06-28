@@ -44,6 +44,23 @@ namespace TI.TRGRA.NEGOCIOS
             }
         }
 
+        public DataTable PesquisarPedidoAll(int idEmpresa, string numero)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@NUMERO", numero);
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspPedidoPesquisarAllIdEmpresa");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public DateTime ObterHorarioBrasilia()
         {
             DateTime DateTimeUtc = DateTime.UtcNow;

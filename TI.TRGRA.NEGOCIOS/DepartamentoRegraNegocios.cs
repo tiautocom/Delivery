@@ -124,17 +124,7 @@ namespace TI.REGRA.NEGOCIOS
 
         public DataTable ListaDepartamento()
         {
-            try
-            {
-                conexaoSqlServer.LimparParametros();
-                DataTable dadosTabela = new DataTable();
-                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamento");
-                return dadosTabela;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            throw new NotImplementedException();
         }
 
         public string GerarIndexDepartamento(int id, string url, string desc, string det, string preco, int cont, string tel)
@@ -149,7 +139,7 @@ namespace TI.REGRA.NEGOCIOS
                 sb.Append("<p>" + det + "</p>");
                 sb.Append("</div>");
                 sb.Append("<div class=\"col-6 col-md-4\">");
-                sb.Append("<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal" + id + "\" class=\"btn btn-outline-success\"> Adicionar </button>");
+                sb.Append("<button type=\"button\" data-toggle=\"modal\" data-target=\"#myModal" + id + "\" class=\"btn btn-outline-success\" style=\"width:300px;\"> Opa... esse eu Quero!!! </button>");
                 sb.Append("</div>");
                 sb.Append("</div>");
                 sb.Append("<hr>");

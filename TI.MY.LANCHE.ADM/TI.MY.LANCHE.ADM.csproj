@@ -158,6 +158,7 @@
     <Content Include="view\add\produto.aspx" />
     <Content Include="view\edit\produto.aspx" />
     <Content Include="view\list\empresa.aspx" />
+    <Content Include="view\list\pedidos.aspx" />
     <Content Include="view\list\produto.aspx" />
     <Content Include="Bundle.config" />
     <Content Include="web.config" />
@@ -230,6 +231,13 @@
     </Compile>
     <Compile Include="view\list\empresa.aspx.designer.cs">
       <DependentUpon>empresa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\list\pedidos.aspx.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\list\pedidos.aspx.designer.cs">
+      <DependentUpon>pedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="view\list\produto.aspx.cs">
       <DependentUpon>produto.aspx</DependentUpon>

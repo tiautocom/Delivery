@@ -2,11 +2,11 @@
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="PT-BR">
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - App IDisque</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -46,15 +46,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">
+                    <a class="navbar-brand" runat="server" href="~/view/list/pedidos.aspx">
                     <asp:Label ID="lblEmpresa" runat="server" Text="idisque.com.br"></asp:Label>
                     </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/view/list/pedidos.aspx">Pedidos</a></li>
+               <%--         <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>--%>
                     </ul>
                 </div>
             </div>

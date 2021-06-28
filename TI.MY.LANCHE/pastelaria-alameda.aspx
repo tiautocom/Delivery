@@ -8,16 +8,61 @@
     <asp:PlaceHolder ID="iFrameScript" runat="server" />
 
     <script>
+
+        var celUsuario = getCookie("nomeUsuario");
+
         window.addEventListener("load", function (event) {
-            var valorDaDiv = $(".produtosIntTitulo").text();
-            $("#orcamentoAssuntoForm").val(valorDaDiv);
 
-            var valornome = $(".nomeEmpresa").text();
+            if (celUsuario === "") {
+                var url_atual = window.location.href;
 
-            localStorage.setItem("nomeEmpresaWatts", valornome);
+                sessionStorage.setItem('urlLogin', url_atual);
 
-            sessionStorage.setItem('chave', 'aberto');
+                window.location.href = "Login.aspx";
+            } else {
+             
+                var url_atual = window.location.href;
+
+                sessionStorage.setItem('urlLogin', url_atual);
+
+                var valorDaDiv = $(".produtosIntTitulo").text();
+
+                $("#orcamentoAssuntoForm").val(valorDaDiv);
+
+                var valornome = $(".nomeEmpresa").text();
+
+                localStorage.setItem("nomeEmpresaWatts", valornome);
+
+                sessionStorage.setItem('chave', 'aberto');
+            }
         });
+
+        function getCookie(name) {
+            var cookies = document.cookie;
+
+            var prefix = name + "=";
+            var begin = cookies.indexOf("; " + prefix);
+
+            if (begin == -1) {
+
+                begin = cookies.indexOf(prefix);
+
+                if (begin != 0) {
+                    return null;
+                }
+
+            } else {
+                begin += 2;
+            }
+
+            var end = cookies.indexOf(";", begin);
+
+            if (end == -1) {
+                end = cookies.length;
+            }
+
+            return unescape(cookies.substring(begin + prefix.length, end));
+        }
     </script>
 
     <style>

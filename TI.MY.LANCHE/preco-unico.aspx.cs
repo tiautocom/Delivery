@@ -56,12 +56,30 @@ namespace TI.MY.LANCHE
                     abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
                     fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "preco-unico", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, idEmpresa, nomeEmpresa, "preco-unico", tel);
                     layoutEstabelicmento = htmlRegraNegocios.GerarStatusEstabelcimento(abertura, fechamento);
 
                     Session["iFramelogoScript"] = layoutLogo;
 
                     iFrameEstabelecimento.Controls.Add(new LiteralControl(layoutEstabelicmento));
+
+                    string variavelHora = htmlRegraNegocios.variavelHora;
+
+                    if (Convert.ToDateTime(abertura) > Convert.ToDateTime(variavelHora))
+                    {
+                        Session["sessionStatus"] = "fechado";
+                    }
+                    else
+                    {
+                        if (Convert.ToDateTime(variavelHora) < Convert.ToDateTime(fechamento))
+                        {
+                            Session["sessionStatus"] = "aberto";
+                        }
+                        else
+                        {
+                            Session["sessionStatus"] = "fechado";
+                        }
+                    }
                 }
             }
             else

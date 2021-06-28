@@ -13,6 +13,15 @@ namespace TI.MY.LANCHE.ADM.view.list {
     public partial class produto {
         
         /// <summary>
+        /// lblEmpresa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEmpresa;
+        
+        /// <summary>
         /// Pesquisar control.
         /// </summary>
         /// <remarks>
@@ -31,13 +40,13 @@ namespace TI.MY.LANCHE.ADM.view.list {
         protected global::System.Web.UI.WebControls.Button btnPesquisar;
         
         /// <summary>
-        /// gdvpRODUTO control.
+        /// gdvProduto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gdvpRODUTO;
+        protected global::System.Web.UI.WebControls.GridView gdvProduto;
         
         /// <summary>
         /// Sair control.

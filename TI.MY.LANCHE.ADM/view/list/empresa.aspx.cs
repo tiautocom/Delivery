@@ -23,14 +23,14 @@ namespace TI.MY.LANCHE.ADM.view.list
         #region VARIAVEIS
 
         public string descricao, nomeEmpresa, nomeUsuarioLogado, parceiro, qsLogado = "";
-        int idEmpresa, idUsuarioLogado, idTipoUsuario = 0;
+        int idEmpresa = 0;
 
         //protected void gdvEmp_RowCommand(object sender, GridViewCommandEventArgs e)
         //{
 
         //}
 
-        int idRetorno = 0;
+        //int idRetorno = 0;
 
         #endregion
         //protected void gdvEmp_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace TI.MY.LANCHE.ADM.view.list
 
                 ListarEmpresa(idEmpresa);
 
-                Response.Redirect("~/view/add/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
+                Response.Redirect("~/view/list/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
                 //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
                 //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa + "&"+qsLogado, false);
             }

@@ -23,21 +23,38 @@ namespace TI.TRGRA.NEGOCIOS
         DataTable dadosTabela = new DataTable();
         #endregion
 
-        //public DataTable Pesquisar(int nomeEmpresa)
-        //{
-        //    try
-        //    {
-        //        conexaoSqlServer.LimparParametros();
-        //        conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", nomeEmpresa);
-        //        DataTable dadosTabela = new DataTable();
-        //        dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoIdEmpresa");
-        //        return dadosTabela;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
+        public DataTable ListProdutoEmpresaId(int idEmpresa)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoIdEmpresa");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public DataTable ListProdutoEmpresaId(string idEmpresa, string idProduto)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@ID_PRODUTO", idProduto);
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarProdutoIdEmpresa");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         //public DataTable PesquisarNome(string nomeEmpresa)
         //{
@@ -101,7 +118,7 @@ namespace TI.TRGRA.NEGOCIOS
                 }
                 else if (opcao == 2)
                 {
-                    conexaoSqlServer.AdicionarParametros("@ID", producto.id);
+                    conexaoSqlServer.AdicionarParametros("@ID_PRODUTO", producto.id);
                     idRetorno = conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspProdutoUpdate").ToString();
                 }
                 return idRetorno;
@@ -110,6 +127,11 @@ namespace TI.TRGRA.NEGOCIOS
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public DataTable PesquisaProdutoId(string idEmpresa)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

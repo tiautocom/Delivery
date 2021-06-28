@@ -17,7 +17,7 @@ namespace TI.MY.LANCHE.ADM.view.add
         #region CLASSES E OBJETOS
 
         Producto produto;
-        Pessoa pessoa;
+        //Pessoa pessoa;
         //Departamento departamento;
         //Departamento_Produto departamento_Produto;
 
@@ -30,7 +30,7 @@ namespace TI.MY.LANCHE.ADM.view.add
         #region VARIAVEIS
 
         string idRetorno = "";
-        string urlEndereco = "";
+        //string urlEndereco = "";
         public string idEmpresa = "";
 
 
@@ -49,38 +49,9 @@ namespace TI.MY.LANCHE.ADM.view.add
 
                 if (idEmpresa == null)
                 {
-                    ddlEmpresa.Visible = true;
-                    ListaEmpresas();
+                    Response.Redirect("~/", false);
                 }
             }     
-        }
-
-        private void ListaEmpresas()
-        {
-            try
-            {
-                DataTable dadosTabela = new DataTable();
-                PessoaRegraNegocios = new PessoaRegraNegocios();
-
-                dadosTabela = PessoaRegraNegocios.Pesquisar();
-
-                if (dadosTabela.Rows.Count > 0)
-                {
-                    ddlEmpresa.DataSource = dadosTabela;
-                    ddlEmpresa.DataValueField = "ID";
-                    ddlEmpresa.DataTextField = "FANTASIA";
-                    ddlEmpresa.DataBind();
-                }
-                else
-                {
-                    ddlDepartamento.DataSource = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                Session["Error"] = ex.Message;
-                Response.Redirect("~/Error.aspx");
-            }
         }
 
         private void ListaDepartamentos()

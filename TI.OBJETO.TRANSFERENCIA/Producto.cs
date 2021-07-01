@@ -16,7 +16,7 @@ namespace TI.OBJETO.TRANSFERENCIA
         public DateTime dtCadastro { get; set; }
         public string urlFoto { get; set; }
 
-        public Departamento  Departamento { get; set; }
+        public Departament  Departamento { get; set; }
         public Departamento_Produto Departamento_Produto { get; set; }
         public Produto_Observacao Produto_Observacao { get; set; }
 

@@ -19,7 +19,7 @@ namespace TI.OBJETO.TRANSFERENCIA
         public bool ativo { get; set; }
 
         public Producto Produto { get; set; }
-        public Departamento Departamento { get; set; }
+        public Departament Departamento { get; set; }
         public EmpresaPJ Empresa { get; set; }
     }
 }

@@ -120,8 +120,8 @@ namespace TI.MY.LANCHE.ADM.view.list
 
                 if (dadosTabela.Rows.Count > 0)
                 {
-                    //nomeEmpresa = dadosTabela.Rows[0][7].ToString();
-                    nomeEmpresa = dadosTabela.Rows[0][4].ToString();
+                    nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString();
+                    //nomeEmpresa = dadosTabela.Rows[0][4].ToString();
 
                 }
                 else

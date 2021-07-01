@@ -8,20 +8,18 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <h3 class="page-header">Cadastro de Produto
-     
-                </h3> 
-                   
-            </div>
-          
-        </div>
-              <div class="row">   
-                   <div class="form-group col-md-6">
-                                  <asp:Label ID="lblEmpresa" runat="server" Text=""></asp:Label>
-                       <asp:DropDownList ID="ddlEmpresa" CssClass="form-control" runat="server" class="form-control col-md-3" ControlToValidate="ddlEmpresa" ErrorMessage="Campo Obrigatório." Visible="false" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged">
+            <div class="form-group col-md-6">
+                <asp:Label ID="lblEmpresa" runat="server" Text=""></asp:Label>
+                <asp:DropDownList ID="ddlEmpresa" CssClass="form-control" runat="server" class="form-control col-md-3" ControlToValidate="ddlEmpresa" ErrorMessage="Campo Obrigatório." Visible="false" OnSelectedIndexChanged="ddlEmpresa_SelectedIndexChanged">
                 </asp:DropDownList>
-                   </div>
+            </div>
+                </h3>
 
-              </div>
+            </div>
+
+        </div>
+        <div class="row">
+        </div>
 
         <div class="row">
             <div class="form-group col-md-4">
@@ -70,7 +68,7 @@
                 <asp:TextBox ID="txtEstoque" runat="server" placeholder="Quantidade" class="form-control"></asp:TextBox>
             </div>
             <div class="form-group col-md-4">
-                 <label for="Arquivo">UpLoad</label>
+                <label for="Arquivo">UpLoad</label>
                 <asp:FileUpload ID="fupImagem" runat="server" Width="100%" Class="form-control" />
                 <br />
             </div>
@@ -81,13 +79,7 @@
                 <label for="Composição ou Ingredientes">Ingerdientes ou Composição</label>
                 <asp:TextBox ID="txtIngredientes" runat="server" placeholder="Ingredientes, Composição" class="form-control" TextMode="MultiLine" Rows="10"></asp:TextBox>
             </div>
-
-        </div>
-
-        <hr />
-
-        <div id="actions" class="row">
-            <div class="col-md-12">
+            <div class="col-md-4">
                 <%--<asp:Button ID="Sair" class="btn btn-danger" runat="server" Text="Sair" PostBackUrl="~/Index.aspx" OnClick="Sair_Click" />--%>
                 <%-- <a href="..Index.aspx" class="btn btn-danger">Sair</a>--%>
                 <a href="../../Default.aspx" class="btn btn-danger">Sair</a>
@@ -97,6 +89,12 @@
                 <a href="/View/List/Empresa.aspx" class="btn btn-info">Lista</a>
 
             </div>
+        </div>
+
+        <hr />
+
+        <div id="actions" class="row">
+            
         </div>
         <br />
     </div>

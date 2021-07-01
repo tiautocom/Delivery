@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TI.OBJETO.TRANSFERENCIA
 {
-    public class Departamento
+    public class Departament
     {
         public int id { get; set; }
         public string descricao { get; set; }

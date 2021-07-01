@@ -22,7 +22,7 @@ namespace TI.MY.LANCHE
         public string scriptModal, scriptAddCarrinho = "";
         public string desc, descDep, det, url, preco, tel = "";
         public int cont = 0;
-        public string nomeEmpresa, layoutLogo, urlLogo, layoutEstabelicmento = "";
+        public string nomeEmpresa, layoutLogo, urlLogo, layoutEstabelicmento, layoutSession = "";
         public bool statusEmpresa;
         public string abertura, fechamento;
 
@@ -56,7 +56,7 @@ namespace TI.MY.LANCHE
                     abertura = dadosTabela.Rows[0]["HORA_INICIO"].ToString().Trim();
                     fechamento = dadosTabela.Rows[0]["HORA_FIM"].ToString().Trim();
 
-                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, nomeEmpresa, "pastelaria-alameda", tel);
+                    layoutLogo = htmlRegraNegocios.GerarLogo(urlLogo, idEmpresa, nomeEmpresa, "pastelaria-alameda", tel);
                     layoutEstabelicmento = htmlRegraNegocios.GerarStatusEstabelcimento(abertura, fechamento);
 
                     Session["iFramelogoScript"] = layoutLogo;

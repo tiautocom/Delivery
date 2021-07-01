@@ -28,11 +28,16 @@
     <script>
         window.addEventListener("load", function (event) {
 
-            let nomeUsuario = localStorage.getItem("nomeUsuario", nome);
-            let celularUsuario = localStorage.getItem("celularUsuario", celular);
+            //let nomeUsuario = localStorage.getItem("nomeUsuario", nome);
+            //let celularUsuario = localStorage.getItem("celularUsuario", celular);
 
-            if (nomeUsuario != null && celularUsuario != null) {
-                window.location.href = "index.html";
+            var celUsuario = getCookie("nomeUsuario");
+
+            var url = sessionStorage.getItem('urlLogin');
+
+            if (nomeUsuario = null) {
+                window.location.href = url;
+            } else {
             }
         });
     </script>
@@ -44,7 +49,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="img/logo/logo.jpg" alt="IMG" />
+                    <img src="images/images.png" alt="IMG" />
                 </div>
 
                 <form id="form1" runat="server" class="login100-form validate-form" />
@@ -116,9 +121,42 @@
                 localStorage.setItem("nomeUsuario", nome);
                 localStorage.setItem("celularUsuario", celular);
 
-                window.location.href = "index.html";
+                setCookie("nomeUsuario", nome, '13 Mai 2054 12:00:00')
+
+                var data = sessionStorage.getItem('urlLogin');
+
+                if (data == null) {
+                    window.location.href = "index.html";
+                } else {
+                    window.location.href = data;
+                }
             }
         }
+
+        function setCookie(name, value, duration) {
+            var cookie = name + "=" + escape(value) +
+            ((duration) ? "; duration=" + duration : "");
+
+            document.cookie = cookie;
+        }
+
+        function deleteCookie(name) {
+            if (getCookie(name)) {
+                document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+            }
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
 
     </script>
     <!--===============================================================================================-->

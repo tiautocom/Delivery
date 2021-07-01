@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.ACESSO.DADOS", "TI.ACESS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TI.MY.LANCHE.ADM", "TI.MY.LANCHE.ADM\TI.MY.LANCHE.ADM.csproj", "{A5B79550-8935-47AD-AB89-CEC7F86B2750}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "webConfig", "webConfig", "{3CFD530E-7EEC-47E2-959E-5B0175BCC33D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

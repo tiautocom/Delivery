@@ -105,6 +105,7 @@
     <Content Include="fonts\font-awesome-4.7.0\HELP-US-OUT.txt" />
     <Content Include="fonts\montserrat\OFL.txt" />
     <Content Include="images\icons\favicon.ico" />
+    <Content Include="images\images.png" />
     <Content Include="images\img-01.png" />
     <Content Include="images\index\app.png" />
     <Content Include="images\index\app1.jpg" />

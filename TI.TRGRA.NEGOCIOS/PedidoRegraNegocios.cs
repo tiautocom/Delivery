@@ -26,17 +26,34 @@ namespace TI.TRGRA.NEGOCIOS
                 conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", pedido.idEmpresa);
                 conexaoSqlServer.AdicionarParametros("@TIPO_PGTO", pedido.tipoPagamento);
                 conexaoSqlServer.AdicionarParametros("@DATA", dataBarsilia);
-                conexaoSqlServer.AdicionarParametros("@TAXA_ENTREGA", Convert.ToDecimal(pedido.taxaEntrega));
-                conexaoSqlServer.AdicionarParametros("@TROCO_PARA", Convert.ToDecimal(pedido.trocoPara));
+                conexaoSqlServer.AdicionarParametros("@TAXA_ENTREGA", pedido.taxaEntrega);
+                conexaoSqlServer.AdicionarParametros("@TROCO_PARA", pedido.trocoPara);
                 conexaoSqlServer.AdicionarParametros("@OBS_PEDIDO", "");
                 conexaoSqlServer.AdicionarParametros("@FECHADO", false);
                 conexaoSqlServer.AdicionarParametros("@STATUS_PEDIDO", "PEDIDO ACEITO");
-                conexaoSqlServer.AdicionarParametros("@SOMA_TOTAL", Convert.ToDecimal(pedido.total));
+                conexaoSqlServer.AdicionarParametros("@SOMA_TOTAL", pedido.total);
                 conexaoSqlServer.AdicionarParametros("@TAMANHO", "");
                 conexaoSqlServer.AdicionarParametros("@TELEFONE_CLIENTE", pedido.telefone);
                 conexaoSqlServer.AdicionarParametros("@RECIBO", pedido.pedidotexto);
 
                 return conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspPedidosSalvar").ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public DataTable PesquisarPedidoAll(int idEmpresa, string numero)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@NUMERO", numero);
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspPedidoPesquisarAllIdEmpresa");
+                return dadosTabela;
             }
             catch (Exception ex)
             {

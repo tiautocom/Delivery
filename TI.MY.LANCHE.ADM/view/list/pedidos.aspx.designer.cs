@@ -10,25 +10,25 @@
 namespace TI.MY.LANCHE.ADM.view.list {
     
     
-    public partial class produto {
+    public partial class pedidos {
         
         /// <summary>
-        /// lblEmpresa control.
+        /// literalName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEmpresa;
+        protected global::System.Web.UI.WebControls.Literal literalName;
         
         /// <summary>
-        /// Pesquisar control.
+        /// txtPesquisar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Pesquisar;
+        protected global::System.Web.UI.WebControls.TextBox txtPesquisar;
         
         /// <summary>
         /// btnPesquisar control.
@@ -40,13 +40,13 @@ namespace TI.MY.LANCHE.ADM.view.list {
         protected global::System.Web.UI.WebControls.Button btnPesquisar;
         
         /// <summary>
-        /// gdvProduto control.
+        /// gdvPedido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gdvProduto;
+        protected global::System.Web.UI.WebControls.GridView gdvPedido;
         
         /// <summary>
         /// Sair control.
@@ -56,14 +56,5 @@ namespace TI.MY.LANCHE.ADM.view.list {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Sair;
-        
-        /// <summary>
-        /// Novo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Novo;
     }
 }

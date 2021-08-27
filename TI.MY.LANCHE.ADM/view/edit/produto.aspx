@@ -67,7 +67,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="Arquivo">UpLoad</label>
-                <asp:FileUpload ID="fupImagem" runat="server" Width="100%" Class="form-control" />
+                <asp:FileUpload ID="flUpFile" runat="server" Width="100%" Class="form-control" />
                 <br />
             </div>
 
@@ -96,4 +96,10 @@
         </div>
         <br />
     </div>
+
+    <script>
+function goBack() {
+    window.history.back()
+}
+</script>
 </asp:Content>

@@ -10,5 +10,9 @@ namespace TI.OBJETO.TRANSFERENCIA
     {
         public int id { get; set; }
         public string descricao { get; set; }
+        public string urlFoto { get; set; }
+
+        public Departament_Empresa Departament_Empresa { get; set; }
+
     }
 }

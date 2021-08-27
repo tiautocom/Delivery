@@ -104,6 +104,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="css\login.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -117,6 +118,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\MY.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="img\produtos\3\PateDeAlho.jpg" />
+    <Content Include="login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -127,6 +130,7 @@
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
     <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\login.css" />
     <Content Include="Scripts\WebForms\Menu.js" />
     <Content Include="Scripts\WebForms\MenuStandards.js" />
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
@@ -147,10 +151,14 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
+    <Content Include="view\add\departamentoadm.aspx" />
+    <Content Include="view\add\departamentonovo.aspx" />
     <Content Include="view\add\departmento.aspx" />
     <Content Include="view\add\empresa.aspx" />
     <Content Include="view\add\produto.aspx" />
     <Content Include="view\edit\produto.aspx" />
+    <Content Include="view\list\deletelistprod.aspx" />
+    <Content Include="view\list\departmento.aspx" />
     <Content Include="view\list\empresa.aspx" />
     <Content Include="view\list\pedidos.aspx" />
     <Content Include="view\list\produto.aspx" />
@@ -178,6 +186,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -192,6 +207,20 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="view\add\departamentoadm.aspx.cs">
+      <DependentUpon>departamentoadm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\add\departamentoadm.aspx.designer.cs">
+      <DependentUpon>departamentoadm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\add\departamentonovo.aspx.cs">
+      <DependentUpon>departamentonovo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\add\departamentonovo.aspx.designer.cs">
+      <DependentUpon>departamentonovo.aspx</DependentUpon>
     </Compile>
     <Compile Include="view\add\departmento.aspx.cs">
       <DependentUpon>departmento.aspx</DependentUpon>
@@ -221,6 +250,20 @@
     <Compile Include="view\edit\produto.aspx.designer.cs">
       <DependentUpon>produto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="view\list\deletelistprod.aspx.cs">
+      <DependentUpon>deletelistprod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\list\deletelistprod.aspx.designer.cs">
+      <DependentUpon>deletelistprod.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\list\departmento.aspx.cs">
+      <DependentUpon>departmento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\list\departmento.aspx.designer.cs">
+      <DependentUpon>departmento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="view\list\empresa.aspx.cs">
       <DependentUpon>empresa.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img\departamentos\3\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

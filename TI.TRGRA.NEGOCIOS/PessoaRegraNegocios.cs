@@ -23,6 +23,21 @@ namespace TI.TRGRA.NEGOCIOS
         DataTable dadosTabela = new DataTable();
         #endregion
 
+        public DataTable Login()
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspLogin");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public DataTable Pesquisar()
         {
             try

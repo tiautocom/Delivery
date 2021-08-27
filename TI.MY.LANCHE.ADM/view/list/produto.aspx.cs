@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TI.OBJETO.TRANSFERENCIA;
+using TI.REGRA.NEGOCIOS;
 using TI.TRGRA.NEGOCIOS;
 
 namespace TI.MY.LANCHE.ADM.view.list
@@ -16,6 +17,7 @@ namespace TI.MY.LANCHE.ADM.view.list
 
         Producto producto;
         ProdutoRegraNegocios produtoRegraNegocios;
+        DepartamentoRegraNegocios departamentoRegraNegocios;
 
         DataTable dadosTabela;
         #endregion
@@ -24,14 +26,21 @@ namespace TI.MY.LANCHE.ADM.view.list
 
         public string descricao, nomeProduto, nomeUsuarioLogado, parceiro, qsLogado, idEmpresa, nomeEmpresa = "";
 
-     
-        int idRetorno, idEmp, idProduto = 0;
+        int idRetorno, idEmp, idProduto, idDepartamento = 0;
 
         #endregion
 
+        protected void ddlDepartamento_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListQueryString();
+            idDepartamento = Convert.ToInt32(ddlDepartamento.SelectedValue);
+            ListaProdutos(idEmp, idDepartamento);
+        }
+
         protected void Novo_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/view/add/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa , false);
+            ListQueryString();
+            Response.Redirect("~/view/add/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresa=" + nomeEmpresa , false);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -42,6 +51,7 @@ namespace TI.MY.LANCHE.ADM.view.list
                 ListQueryString();
                 idEmp = Convert.ToInt32(idEmpresa);
                 ListaProdutos(idEmp);
+                ListaDepartamento(idEmp);
 
                 if (idEmpresa == null)
                 {
@@ -50,13 +60,16 @@ namespace TI.MY.LANCHE.ADM.view.list
             }
         }
 
+        
+
         private void ListQueryString()
         {
-            nomeEmpresa = Request.QueryString["nomeEmpresaEdit"];
+            nomeEmpresa = Request.QueryString["nomeEmpresa"];
             lblEmpresa.Text = nomeEmpresa;
 
             idEmpresa = Request.QueryString["idEmpresa"];
-            
+            idEmp = Convert.ToInt32(idEmpresa);
+
         }
 
         private void ListaProdutos(int idEmp)
@@ -67,6 +80,7 @@ namespace TI.MY.LANCHE.ADM.view.list
                 produtoRegraNegocios = new ProdutoRegraNegocios();
 
                 dadosTabela = produtoRegraNegocios.ListProdutoEmpresaId(idEmp);
+                
 
                 if (dadosTabela.Rows.Count > 0)
                 {
@@ -86,44 +100,21 @@ namespace TI.MY.LANCHE.ADM.view.list
             }
         }
 
-        protected void gdvProduto_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            ListQueryString();
-            
-            idProduto = 0;
-            if (e.CommandName == "DELETAR")
-            {
-                idProduto = Convert.ToInt32(e.CommandArgument);
-                //Delete(idEmpresa);
-            }
-            if (e.CommandName == "EDITAR")
-            {
-                //ListaLogado();
-                idProduto = Convert.ToInt32(e.CommandArgument);
-                
-
-                //EditProdutoId(idEmp);
-
-                Response.Redirect("~/view/edit/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa + "&idProduto=" + idProduto + "&nomeProduto=" + nomeProduto   , false);
-                //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
-                //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa + "&"+qsLogado, false);
-            }
-        }
-
-        private void EditProdutoId(int idEmp)
+        private void ListaProdutos(int idEmp, int idDepartamento)
         {
             try
             {
-                dadosTabela = new DataTable();
+                DataTable dadosTabela = new DataTable();
                 produtoRegraNegocios = new ProdutoRegraNegocios();
 
-                dadosTabela = produtoRegraNegocios.PesquisaProdutoId(idEmpresa);
+                dadosTabela = produtoRegraNegocios.ListProdutoEmpresaId(idEmp, idDepartamento);
+
 
                 if (dadosTabela.Rows.Count > 0)
                 {
-                    nomeEmpresa = dadosTabela.Rows[0]["FANTASIA"].ToString();
-                    //nomeEmpresa = dadosTabela.Rows[0][4].ToString();
-
+                    gdvProduto.DataSource = null;
+                    gdvProduto.DataSource = dadosTabela;
+                    gdvProduto.DataBind();
                 }
                 else
                 {
@@ -136,6 +127,152 @@ namespace TI.MY.LANCHE.ADM.view.list
                 Response.Redirect("~/Error.aspx");
             }
         }
+
+        private void ListaDepartamento(int idEmp)
+        {
+            try
+            {
+                DataTable dadosTabela = new DataTable();
+                departamentoRegraNegocios = new DepartamentoRegraNegocios();
+
+                dadosTabela = departamentoRegraNegocios.PesquisarDepartamentosIdEmpresa(idEmp);
+
+                if (dadosTabela.Rows.Count > 0)
+                {
+                    ddlDepartamento.DataSource = dadosTabela;
+                    ddlDepartamento.DataValueField = "ID";
+                    ddlDepartamento.DataTextField = "DESCRICAO_DEPARTAMENTO";
+                    ddlDepartamento.DataBind();
+                }
+                else
+                {
+                    ddlDepartamento.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["Error"] = ex.Message;
+                Response.Redirect("~/Error.aspx");
+            }
+        }
+
+        protected void gdvProduto_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            ListQueryString();
+            
+            idProduto = 0;
+            if (e.CommandName == "DELETAR")
+            {
+                idProduto = Convert.ToInt32(e.CommandArgument);
+                PausarVenda(idProduto, idEmp);
+            }
+            if (e.CommandName == "ATIVAR")
+            {
+                idProduto = Convert.ToInt32(e.CommandArgument);
+                AtivarVenda(idProduto, idEmp);
+            }
+            if (e.CommandName == "EDITAR")
+            {
+                //ListaLogado();
+                idProduto = Convert.ToInt32(e.CommandArgument);
+
+                //EditProdutoId(idEmp);
+
+                Response.Redirect("~/view/edit/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresa=" + nomeEmpresa + "&idProduto=" + idProduto   , false);
+                //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
+                //Response.Redirect("~/View/EDIT/Empresa.aspx?idEmpresaEdit=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa + "&"+qsLogado, false);
+            }
+        }
+
+       
+        private string PausarVenda(int idProduto, int idEmp)
+        {
+            ListQueryString();
+            try
+            {
+
+                producto = new Producto();
+
+                producto.id = idProduto;
+                producto.Departamento_Produto = new Departamento_Produto();
+
+                producto.Departamento_Produto.idDepartamento = Convert.ToInt32(ddlDepartamento.SelectedValue);
+                producto.Departamento_Produto.idEmpresa = idEmp;
+                producto.Departamento_Produto.ativo = false;
+
+                //produto.Produto_Observacao.Observacao = txtIngredientes.Text.Trim();
+
+
+                //PRODUTO
+                produtoRegraNegocios = new ProdutoRegraNegocios();
+                idRetorno = produtoRegraNegocios.SuspenderProduto(producto, 2);
+
+
+                try
+                {
+                    Convert.ToInt32(idRetorno);
+
+                    Response.Redirect("~/view/list/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresa=" + nomeEmpresa + "&idDepartamento=" + nomeEmpresa, false);
+
+                }
+                catch
+                {
+                    Response.Write("<script>alert('Mensagem');</script>");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Session["Error"] = ex.Message;
+                Response.Redirect("~/Error.aspx");
+            }
+            return idRetorno.ToString();
+        }
+
+        private string AtivarVenda(int idProduto, int idEmp)
+        {
+            ListQueryString();
+            try
+            {
+
+                producto = new Producto();
+
+                producto.id = idProduto;
+                producto.Departamento_Produto = new Departamento_Produto();
+
+                producto.Departamento_Produto.idDepartamento = Convert.ToInt32(ddlDepartamento.SelectedValue);
+                producto.Departamento_Produto.idEmpresa = idEmp;
+                producto.Departamento_Produto.ativo = true;
+
+               
+                //PRODUTO
+                produtoRegraNegocios = new ProdutoRegraNegocios();
+                idRetorno = produtoRegraNegocios.AtivarProduto(producto, 2);
+
+
+                try
+                {
+                    Convert.ToInt32(idRetorno);
+
+                    Response.Redirect("~/view/list/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresa=" + nomeEmpresa + "&idDepartamento=" + nomeEmpresa, false);
+
+                }
+                catch
+                {
+                    Response.Write("<script>alert('Mensagem');</script>");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Session["Error"] = ex.Message;
+                Response.Redirect("~/Error.aspx");
+            }
+            return idRetorno.ToString();
+        }
+
 
         protected void Pesquisar_TextChanged(object sender, EventArgs e)
         {

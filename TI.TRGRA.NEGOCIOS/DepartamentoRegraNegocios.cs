@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TI.ACESSO.DADOS;
+using TI.OBJETO.TRANSFERENCIA;
 
 namespace TI.REGRA.NEGOCIOS
 {
@@ -121,7 +122,7 @@ namespace TI.REGRA.NEGOCIOS
                 throw;
             }
         }
-
+       
         public DataTable ListaDepartamento()
         {
             try
@@ -368,7 +369,8 @@ namespace TI.REGRA.NEGOCIOS
                 conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
 
                 DataTable dadosTabela = new DataTable();
-                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoIdEmpresa");
+                //dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoIdEmpresa");
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoEmpresa");
                 return dadosTabela;
             }
             catch (Exception ex)
@@ -394,5 +396,51 @@ namespace TI.REGRA.NEGOCIOS
                 throw new Exception(ex.Message);
             }
         }
+
+        public string AtivarDepartamentoEmpresa(Departament_Empresa departament_Empresa, int opcao)
+        {
+
+            try
+            {
+                conexaoSqlServer.AdicionarParametros("@ID_DEPARTAMENTO", departament_Empresa.idDepartamento);
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", departament_Empresa.idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@URL_FOTO", departament_Empresa.URL_Foto);
+
+                return conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspDepartamentoEmpresaAtiva").ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public string AddDepartamento(Departament departament, int opcao)
+        {
+
+            try
+            {
+                conexaoSqlServer.AdicionarParametros("@ID_DEPARTAMENTO", departament.descricao);
+
+                if (opcao == 1)
+                {
+                   conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspDepartamentoAdd").ToString();
+                }
+                else if (opcao == 2)
+                {
+                    conexaoSqlServer.AdicionarParametros("@ID_DEPARTAMENTO", departament.id);
+                    conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspDepartamentoAdd").ToString();
+                }
+             
+
+                return conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspDepartamentoAdd").ToString();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+
     }
 }

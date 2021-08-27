@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -31,7 +32,8 @@ namespace TI.MY.LANCHE.ADM.view.add
 
         string idRetorno = "";
         //string urlEndereco = "";
-        public string idEmpresa = "";
+        public string idEmpresa, nomeEmpresa, url = "";
+        public int idEmp = 0;
 
 
         #endregion
@@ -42,10 +44,7 @@ namespace TI.MY.LANCHE.ADM.view.add
             {
                 ListaDepartamentos();
 
-                string nomeEmpresa = Request.QueryString["nomeEmpresaEdit"];
-                lblEmpresa.Text = nomeEmpresa;
-
-                idEmpresa = Request.QueryString["idEmpresa"];
+                ListQueryString();
 
                 if (idEmpresa == null)
                 {
@@ -54,14 +53,25 @@ namespace TI.MY.LANCHE.ADM.view.add
             }     
         }
 
+        private void ListQueryString()
+        {
+            nomeEmpresa = Request.QueryString["nomeEmpresa"];
+            lblEmpresa.Text = nomeEmpresa;
+
+            idEmpresa = Request.QueryString["idEmpresa"];
+            idEmp = Convert.ToInt32(idEmpresa);
+
+        }
+
         private void ListaDepartamentos()
         {
+            ListQueryString();
             try
             {
                 DataTable dadosTabela = new DataTable();
                 DepartamentoRegraNegocios = new DepartamentoRegraNegocios();
 
-                dadosTabela = DepartamentoRegraNegocios.ListaDepartamento();
+                dadosTabela = DepartamentoRegraNegocios.PesquisarDepartamentosIdEmpresa(idEmp);
 
                 if (dadosTabela.Rows.Count > 0)
                 {
@@ -127,7 +137,14 @@ namespace TI.MY.LANCHE.ADM.view.add
                     produto.Departamento_Produto.idEmpresa = Convert.ToInt32(idEmpresa);
                     produto.Departamento_Produto.preco = Convert.ToDecimal(txtPreco.Text);
                     produto.Departamento_Produto.custo = Convert.ToDecimal(txtCusto.Text);
-                    produto.Departamento_Produto.estoque = Convert.ToDecimal(txtEstoque.Text);
+                    try
+                    {
+                        produto.Departamento_Produto.estoque = Convert.ToDecimal(txtEstoque.Text);
+                    }
+                    catch (Exception)
+                    {
+                        produto.Departamento_Produto.estoque = 0;
+                    }
                     produto.Departamento_Produto.granel = txtGranel.Text.ToUpper();
                     produto.Departamento_Produto.ativo = Convert.ToBoolean(chkAtivo.Checked);
 
@@ -141,6 +158,7 @@ namespace TI.MY.LANCHE.ADM.view.add
 
                     try
                     {
+                        UploadImagem();
                         Convert.ToInt32(idRetorno);
                         Response.Redirect("~/View/Add/produto.aspx?idProduto=" + idRetorno + "&produto=" + produto.descricao, false);
 
@@ -158,6 +176,45 @@ namespace TI.MY.LANCHE.ADM.view.add
                 Response.Redirect("~/Error.aspx");
             }
             return idRetorno;
+        }
+
+        private void UploadImagem()
+        {
+            try
+            {
+                HttpFileCollection uploadedFiles = Request.Files;
+
+                HttpPostedFile userPostedFile = uploadedFiles[0];
+
+                ListQueryString();
+
+                url = fupImagem.PostedFile.FileName;
+
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\departamentos\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\departamentos\\" + idEmpresa + "\\"));
+
+                //string diretorio = this.Server.MapPath("~\\idisque.com.br\\img\\departamento\\" + idEmpresa + "\\" + url);
+
+                //Directory.CreateDirectory(Server.MapPath("~\\img\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\img\\produtos\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\img\\produtos\\" + idEmpresa + "\\"));
+
+                //string diretorio = this.Server.MapPath("~\\img\\produtos\\" + idEmpresa + "\\" + url);
+
+                Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\"));
+                Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\produtos\\"));
+                Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\produtos\\" + idEmpresa + "\\"));
+
+
+                string diretorio = this.Server.MapPath("~\\idisque.com.br\\img\\produtos\\" + idEmpresa + "\\" + url);
+
+                userPostedFile.SaveAs(diretorio);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         protected void ddlEmpresa_SelectedIndexChanged(object sender, EventArgs e)

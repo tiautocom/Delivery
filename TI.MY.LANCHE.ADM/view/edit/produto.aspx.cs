@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -28,9 +29,9 @@ namespace TI.MY.LANCHE.ADM.view.edit
 
         #region VARIAVEIS
 
-        int idProducto = 0;
+        int idProducto, idDepartamento = 0;
         //string urlEndereco = "";
-        string idRetorno, idEmpresa, nomeEmpresa, idProduto, nomeProduto = "";
+        string idRetorno, idEmpresa, nomeEmpresa, idProduto, url, extensaoImg = "";
 
 
         #endregion
@@ -52,7 +53,7 @@ namespace TI.MY.LANCHE.ADM.view.edit
 
         private void ListQueryString()
         {
-            nomeEmpresa = Request.QueryString["nomeEmpresaEdit"];
+            nomeEmpresa = Request.QueryString["nomeEmpresa"];
             lblEmpresa.Text = nomeEmpresa;
 
             idEmpresa = Request.QueryString["idEmpresa"];
@@ -74,14 +75,16 @@ namespace TI.MY.LANCHE.ADM.view.edit
                 if (dadosTabela.Rows.Count > 0)
                 {
                     txtCodBarra.Text = dadosTabela.Rows[0]["COD_BAR"].ToString();
-                    ddlDepartamento.Text = dadosTabela.Rows[0]["DESCRICAO_DEPARTAMENTO"].ToString();
+                    ddlDepartamento.SelectedValue = dadosTabela.Rows[0]["ID_DEPARTAMENTO"].ToString();
+                    ddlDepartamento.DataTextField = dadosTabela.Rows[0]["DESCRICAO_DEPARTAMENTO"].ToString();
                     chkAtivo.Checked = Convert.ToBoolean(dadosTabela.Rows[0]["ATIVO"].ToString());
                     txtDescricao.Text = dadosTabela.Rows[0]["DESCRICAO"].ToString();
                     txtUnidade.Text = dadosTabela.Rows[0]["UNID"].ToString();
                     txtPreco.Text = dadosTabela.Rows[0]["PRECO"].ToString();
                     txtCusto.Text = dadosTabela.Rows[0]["CUSTO"].ToString();
+                    //flUpFile = dadosTabela.Rows[0]["URL_PRODUTO"].ToString();
                     txtGranel.Text = dadosTabela.Rows[0]["GRANEL"].ToString();
-                    txtCusto.Text = dadosTabela.Rows[0]["CUSTO"].ToString(); 
+                    txtCusto.Text = dadosTabela.Rows[0]["CUSTO"].ToString();
                     txtEstoque.Text = dadosTabela.Rows[0]["ESTOQUE"].ToString();
                     txtIngredientes.Text = dadosTabela.Rows[0]["INGREDIENTES"].ToString();
                 }
@@ -89,6 +92,8 @@ namespace TI.MY.LANCHE.ADM.view.edit
                 {
                     ddlDepartamento.DataSource = null;
                 }
+                txtPreco.Focus();
+
             }
             catch (Exception ex)
             {
@@ -156,7 +161,17 @@ namespace TI.MY.LANCHE.ADM.view.edit
                     producto.descricao = txtDescricao.Text.ToUpper().Trim();
                     producto.unidade = txtUnidade.Text.ToUpper().Trim();
                     producto.dtCadastro = Convert.ToDateTime(DateTime.Now.ToShortDateString());
-                    producto.urlFoto = fupImagem.ToString();
+                    try
+                    {
+                        string[] nomeImag = flUpFile.FileName.Split('.');
+                        extensaoImg = nomeImag[1].ToString();
+                    }
+                    catch (Exception)
+                    {
+                        extensaoImg = idProduto + ".jpg";
+                    }
+                    producto.urlFoto = "http://adm.idisque.com.br\\img\\produtos\\" + idEmpresa +"\\" + idProduto + "." + extensaoImg;
+
                     producto.ingredientes = txtIngredientes.Text.Trim();
 
                     producto.Departamento_Produto = new Departamento_Produto();
@@ -164,8 +179,23 @@ namespace TI.MY.LANCHE.ADM.view.edit
                     producto.Departamento_Produto.idDepartamento = Convert.ToInt32(ddlDepartamento.SelectedValue);
                     producto.Departamento_Produto.idEmpresa = Convert.ToInt32(idEmpresa);
                     producto.Departamento_Produto.preco = Convert.ToDecimal(txtPreco.Text);
-                    producto.Departamento_Produto.custo = Convert.ToDecimal(txtCusto.Text);
-                    producto.Departamento_Produto.estoque = Convert.ToDecimal(txtEstoque.Text);
+                    try
+                    {
+                        producto.Departamento_Produto.custo = Convert.ToDecimal(txtCusto.Text);
+                    }
+                    catch
+                    {
+                        producto.Departamento_Produto.custo = 0;
+
+                    }
+                    try
+                    {
+                        producto.Departamento_Produto.estoque = Convert.ToDecimal(txtEstoque.Text);
+                    }
+                    catch
+                    {
+                        producto.Departamento_Produto.estoque = 0;
+                    }
                     producto.Departamento_Produto.granel = txtGranel.Text.ToUpper();
                     producto.Departamento_Produto.ativo = Convert.ToBoolean(chkAtivo.Checked);
 
@@ -176,12 +206,16 @@ namespace TI.MY.LANCHE.ADM.view.edit
                     produtoRegraNegocios = new ProdutoRegraNegocios();
                     idRetorno = produtoRegraNegocios.AddProduto(producto, 2);
 
-
                     try
                     {
+                        if ((flUpFile.FileName != ""))
+                        {
+                            UploadImagem();
+                        }
                         Convert.ToInt32(idRetorno);
-                        Response.Redirect("~/view/list/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresaEdit=" + nomeEmpresa, false);
 
+                        Response.Redirect("~/view/list/produto.aspx?idEmpresa=" + idEmpresa + "&nomeEmpresa=" + nomeEmpresa + "&idDepartamento=" + producto.Departamento_Produto.idDepartamento, false);
+                      
                     }
                     catch
                     {
@@ -196,6 +230,52 @@ namespace TI.MY.LANCHE.ADM.view.edit
                 Response.Redirect("~/Error.aspx");
             }
             return idRetorno;
+        }
+
+        private void UploadImagem()
+        {
+            try
+            {
+                HttpFileCollection uploadedFiles = Request.Files;
+
+                HttpPostedFile userPostedFile = uploadedFiles[0];
+
+                ListQueryString();
+
+                url = flUpFile.PostedFile.FileName;
+                string[] nomeImag = url.Split('.');
+                string extensaoImg = nomeImag[1].ToString();
+                url = idProduto + "." + extensaoImg;
+
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\departamentos\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\departamentos\\" + idEmpresa + "\\"));
+
+                //string diretorio = this.Server.MapPath("~\\idisque.com.br\\img\\departamento\\" + idEmpresa + "\\" + url);
+
+
+                Directory.CreateDirectory(Server.MapPath("~\\img\\"));
+                Directory.CreateDirectory(Server.MapPath("~\\img\\produtos\\"));
+                Directory.CreateDirectory(Server.MapPath("~\\img\\produtos\\" + idEmpresa + "\\"));
+
+
+                string diretorio = this.Server.MapPath("~\\img\\produtos\\" + idEmpresa + "\\" + url);
+
+
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\produtos\\"));
+                //Directory.CreateDirectory(Server.MapPath("~\\idisque.com.br\\img\\produtos\\" + idEmpresa + "\\"));
+
+
+                //string diretorio = this.Server.MapPath("~\\idisque.com.br\\img\\produtos\\" + idEmpresa + "\\" + url);
+
+                userPostedFile.SaveAs(diretorio);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         protected void ddlEmpresa_SelectedIndexChanged(object sender, EventArgs e)

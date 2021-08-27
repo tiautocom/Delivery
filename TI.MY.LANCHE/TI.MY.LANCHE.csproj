@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,6 +100,7 @@
     <Content Include="csss\util.css" />
     <Content Include="css\styles.css" />
     <Content Include="degraus-nautico.aspx" />
+    <Content Include="degraus-restaurante.aspx" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
@@ -162,6 +164,7 @@
     <Content Include="js\main.js" />
     <Content Include="js\scripts.js" />
     <Content Include="preco-unico.aspx" />
+    <Content Include="produtos-degraus-restaurante.aspx" />
     <Content Include="produtos-pastelaria-alameda.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="lu-lanches.aspx" />
@@ -338,12 +341,26 @@
     <Compile Include="degraus-nautico.aspx.designer.cs">
       <DependentUpon>degraus-nautico.aspx</DependentUpon>
     </Compile>
+    <Compile Include="degraus-restaurante.aspx.cs">
+      <DependentUpon>degraus-restaurante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="degraus-restaurante.aspx.designer.cs">
+      <DependentUpon>degraus-restaurante.aspx</DependentUpon>
+    </Compile>
     <Compile Include="preco-unico.aspx.cs">
       <DependentUpon>preco-unico.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="preco-unico.aspx.designer.cs">
       <DependentUpon>preco-unico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="produtos-degraus-restaurante.aspx.cs">
+      <DependentUpon>produtos-degraus-restaurante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="produtos-degraus-restaurante.aspx.designer.cs">
+      <DependentUpon>produtos-degraus-restaurante.aspx</DependentUpon>
     </Compile>
     <Compile Include="produtos-pastelaria-alameda.aspx.cs">
       <DependentUpon>produtos-pastelaria-alameda.aspx</DependentUpon>

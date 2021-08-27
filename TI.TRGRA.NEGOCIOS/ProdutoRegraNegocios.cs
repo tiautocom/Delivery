@@ -39,6 +39,23 @@ namespace TI.TRGRA.NEGOCIOS
             }
         }
 
+        public DataTable ListProdutoEmpresaId(int idEmpresa, int idDepartamento)
+        {
+            try
+            {
+                conexaoSqlServer.LimparParametros();
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", idEmpresa);
+                conexaoSqlServer.AdicionarParametros("@ID_DEPARTAMENTO", idDepartamento);
+                DataTable dadosTabela = new DataTable();
+                dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarDepartamentoProdutoIdEmpresa");
+                return dadosTabela;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public DataTable ListProdutoEmpresaId(string idEmpresa, string idProduto)
         {
             try
@@ -56,37 +73,10 @@ namespace TI.TRGRA.NEGOCIOS
             }
         }
 
-        //public DataTable PesquisarNome(string nomeEmpresa)
-        //{
-        //    try
-        //    {
-        //        conexaoSqlServer.LimparParametros();
-        //        conexaoSqlServer.AdicionarParametros("@NOME_EMPRESA", nomeEmpresa);
-        //        DataTable dadosTabela = new DataTable();
-        //        dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresaNome");
-        //        return dadosTabela;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
-
-        //public DataTable PesquisarId(int idEmpresa)
-        //{
-        //    try
-        //    {
-        //        conexaoSqlServer.LimparParametros();
-        //        conexaoSqlServer.AdicionarParametros("@ID", idEmpresa);
-        //        DataTable dadosTabela = new DataTable();
-        //        dadosTabela = conexaoSqlServer.ExecutarConsulta(CommandType.StoredProcedure, "uspListarEmpresaId");
-        //        return dadosTabela;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
+        public DataTable PesquisaProdutoId(string idEmpresa)
+        {
+            throw new NotImplementedException();
+        }
 
         #region Add_Update
         public string AddProduto(Producto producto, int opcao)
@@ -111,7 +101,7 @@ namespace TI.TRGRA.NEGOCIOS
                 conexaoSqlServer.AdicionarParametros("@INGREDIENTES", producto.ingredientes);
                 conexaoSqlServer.AdicionarParametros("@DATA", producto.dtCadastro);
                 conexaoSqlServer.AdicionarParametros("@URL", producto.urlFoto);
-              
+
                 if (opcao == 1)
                 {
                     idRetorno = conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspProdutoAdd").ToString();
@@ -128,11 +118,43 @@ namespace TI.TRGRA.NEGOCIOS
                 throw new Exception(ex.Message);
             }
         }
-
-        public DataTable PesquisaProdutoId(string idEmpresa)
+        
+        #region UpdateAtivarDesativar
+        public int SuspenderProduto(Producto producto, int opcao)
         {
-            throw new NotImplementedException();
+            try
+            {
+                conexaoSqlServer.AdicionarParametros("@ATIVO", producto.Departamento_Produto.ativo);
+                conexaoSqlServer.AdicionarParametros("@ID_PRODUTO", producto.id);
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", producto.Departamento_Produto.idEmpresa);
+
+                return Convert.ToInt32(conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspProdutoAtivarDesativar").ToString());
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
         }
+
+        public int AtivarProduto(Producto producto, int v)
+        {
+            try
+            {
+                conexaoSqlServer.AdicionarParametros("@ATIVO", producto.Departamento_Produto.ativo);
+                conexaoSqlServer.AdicionarParametros("@ID_PRODUTO", producto.id);
+                conexaoSqlServer.AdicionarParametros("@ID_EMPRESA", producto.Departamento_Produto.idEmpresa);
+
+                return Convert.ToInt32(conexaoSqlServer.ExecutarManipulacao(CommandType.StoredProcedure, "uspProdutoAtivarDesativar").ToString());
+            }
+            catch (Exception EX)
+            {
+
+                throw;
+            }
+        }
+        #endregion
+
         #endregion
 
     }

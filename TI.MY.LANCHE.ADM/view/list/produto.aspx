@@ -5,8 +5,10 @@
         <h2>
             <asp:Label ID="lblEmpresa" runat="server" Text=""></asp:Label>
             <b>Lista de Produtos </b>
-            <asp:TextBox ID="Pesquisar" runat="server" Width="250px" placeholder="Descrição do Produto" AutoPostBack="false" class="form-control" OnTextChanged="Pesquisar_TextChanged">
-            </asp:TextBox>
+            <%--<asp:TextBox ID="txtPesquisar" runat="server" Width="250px" placeholder="Descrição do Produto" AutoPostBack="false" class="form-control" OnTextChanged="Pesquisar_TextChanged" style="left: 0px; top: 0px">
+            </asp:TextBox>--%>
+            <asp:DropDownList ID="ddlDepartamento" CssClass="form-control" runat="server" class="form-control" ControlToValidate="ddlDepartamento" OnSelectedIndexChanged="ddlDepartamento_SelectedIndexChanged">
+            </asp:DropDownList>
             <asp:Button ID="btnPesquisar" runat="server" Text="Pesquisar" class="btn btn-primary" />
         </h2>
 
@@ -35,17 +37,12 @@
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Label ID="lblAtivo" runat="server" Text='<%# Bind("ATIVO") %>'></asp:Label>
+                        <asp:Label ID="lblAtivo" runat="server" Text='<%# Bind("ATIVO_P") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:BoundField DataField="CPF_CNPJ" Visible="False" />
 
-                <asp:TemplateField ShowHeader="False">
-                    <ItemTemplate>
-                        <asp:Button ID="btnDetalhe" runat="server" Width="100%" BorderStyle="Double" CssClass="btn btn-info" Text="Detalhes" ToolTip="Detalhes da Empresa" Font-Size="Smaller" CommandName="EDITAR" CommandArgument='<%#  Eval("ID_PRODUTO") %>' />
-                    </ItemTemplate>
-                    <ItemStyle Font-Size="Smaller" />
-                </asp:TemplateField>
+
                 <asp:TemplateField ShowHeader="False">
                     <ItemTemplate>
                         <asp:Button ID="btnEditar" runat="server" BorderStyle="None" Width="100%" CssClass="btn btn-warning" Text="Editar" Font-Size="Smaller" CommandName="EDITAR" CommandArgument='<%#  Eval("ID_PRODUTO") %>' CommandText='<%#  Eval("PRODUTO") %>' />
@@ -53,7 +50,13 @@
                 </asp:TemplateField>
                 <asp:TemplateField ShowHeader="False">
                     <ItemTemplate>
-                        <asp:Button ID="btnExcluir" runat="server" Width="100%" CssClass="btn btn-danger" Text="Excluir" ToolTip="Excluir Dados Empresa" Font-Size="Smaller" CommandName="DELETAR" CommandArgument='<%#  Eval("ID") %>' />
+                        <asp:Button ID="btnDetalhe" runat="server" Width="100%" BorderStyle="Double" CssClass="btn btn-link" Text="ATIVAR" ToolTip="Ativar Venda" Font-Size="Smaller" CommandName="ATIVAR" CommandArgument='<%#  Eval("ID_PRODUTO") %>' />
+                    </ItemTemplate>
+                    <ItemStyle Font-Size="Smaller" />
+                </asp:TemplateField>
+                <asp:TemplateField ShowHeader="False">
+                    <ItemTemplate>
+                        <asp:Button ID="btnExcluir" runat="server" Width="100%" CssClass="btn btn-danger" Text="Pausar Vendas" ToolTip="Pausar Venda" Font-Size="Smaller" CommandName="DELETAR" CommandArgument='<%#  Eval("ID_PRODUTO") %>' />
                     </ItemTemplate>
                 </asp:TemplateField>
 
